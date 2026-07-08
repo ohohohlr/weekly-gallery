@@ -9,15 +9,15 @@
 body{position:relative;overflow-x:hidden;
   font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   background:#0d0e14;color:#dde0e8;line-height:1.6;
-  min-height:100vh;padding:60px 20px 80px}
+  min-height:100vh;padding:0 20px}
 #bg-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .container{max-width:580px;width:100%;margin:0 auto;position:relative;z-index:1}
-.brand{text-align:center;margin-bottom:40px}
-.brand h1{font-size:26px;font-weight:800;color:#e8c56d;letter-spacing:4px}
-.brand .tag{display:inline-block;margin-top:10px;padding:4px 16px;
+.brand{text-align:center;padding-top:42vh;margin-bottom:32px}
+.brand h1{font-size:72px;font-weight:900;color:#e8c56d;letter-spacing:8px;line-height:1}
+.brand .tag{display:inline-block;margin-top:16px;padding:6px 20px;
   background:rgba(232,197,109,.08);border:1px solid rgba(232,197,109,.18);
   border-radius:14px;font-size:11px;color:#b8a868;letter-spacing:1.5px}
-.brand p{margin-top:6px;color:#4a5070;font-size:13px}
+.brand p{margin-top:8px;color:#3a3f5a;font-size:14px;letter-spacing:1px}
 .week-list{display:flex;flex-direction:column;gap:10px}
 .week-link{display:flex;align-items:center;justify-content:space-between;
   padding:16px 20px;
@@ -38,8 +38,9 @@ body{position:relative;overflow-x:hidden;
   font-size:14px;color:#4a5070;transition:all .2s}
 .week-link:hover .arrow{background:rgba(232,197,109,.15);color:#e8c56d}
 .footer{text-align:center;margin-top:48px;color:#2a2e40;font-size:11px;letter-spacing:2px}
-@media(max-width:480px){body{padding:40px 16px 60px}
-  .brand h1{font-size:22px}.week-link{padding:14px 16px}}
+@media(max-width:480px){body{padding:0 16px}
+  .brand{padding-top:20vh}
+  .brand h1{font-size:40px}.week-link{padding:14px 16px}}
 </style>
 </head>
 <body>
