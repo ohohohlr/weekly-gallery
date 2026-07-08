@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社媒图片汇总 · 06.01–06.07</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0d0e14;
+  color: #dde0e8;
+  line-height: 1.5;
+  display: flex;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 260px;
+  background: #10121c;
+  border-right: 1px solid #1e2238;
+  overflow-y: auto;
+  padding: 0 0 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s ease;
+}
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-thumb { background: #2a2e48; border-radius: 2px; }
+
+.sidebar-logo {
+  padding: 16px 14px 14px;
+  border-bottom: 1px solid #1a1e30;
+  margin-bottom: 4px;
+  position: sticky;
+  top: 0;
+  background: #10121c;
+  z-index: 1;
+}
+.sidebar-logo .s-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #e8c56d;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+.sidebar-logo .s-sub {
+  font-size: 11px;
+  color: #4a5070;
+  margin-top: 3px;
+}
+
+/* accent color — override via CSS custom properties if desired */
+:root {
+  --accent: #c85a5a;
+  --accent-glow: rgba(200,90,90,0.15);
+  --accent-border: rgba(200,90,90,0.3);
+  --gold: #e8c56d;
+  --gold-dim: #d8c07a;
+  /* Game accent colors */
+  --clr-endfield: #5b8dd9;
+  --clr-arknights: #e8c56d;
+  --clr-zzz: #c85a5a;
+  --clr-nte: #7b6bc4;
+}
+
+/* ── GAME GROUP (sidebar) ── */
+.sb-game { margin-bottom: 2px; }
+.sb-game-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all .15s;
+  user-select: none;
+  width: 100%;
+  background: none;
+  border-top: none; border-right: none; border-bottom: none;
+  text-align: left;
+}
+.sb-game-toggle:hover { background: rgba(255,255,255,.04); }
+.sb-game-toggle .arrow {
+  font-size: 10px;
+  transition: transform .2s;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  color: #4a5070;
+}
+.sb-game-toggle.collapsed .arrow { transform: rotate(-90deg); }
+.sb-game-toggle .game-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sb-game-toggle .game-label { flex: 1; }
+.sb-game-toggle .game-count {
+  font-size: 10px;
+  color: #3a3f5a;
+  font-weight: 400;
+}
+
+/* Game-specific colors */
+.sb-game[data-game="endfield"] .sb-game-toggle { color: var(--clr-endfield); border-left-color: var(--clr-endfield); }
+.sb-game[data-game="endfield"] .game-dot { background: var(--clr-endfield); }
+.sb-game[data-game="arknights"] .sb-game-toggle { color: var(--clr-arknights); border-left-color: var(--clr-arknights); }
+.sb-game[data-game="arknights"] .game-dot { background: var(--clr-arknights); }
+.sb-game[data-game="zzz"] .sb-game-toggle { color: var(--clr-zzz); border-left-color: var(--clr-zzz); }
+.sb-game[data-game="zzz"] .game-dot { background: var(--clr-zzz); }
+.sb-game[data-game="nte"] .sb-game-toggle { color: var(--clr-nte); border-left-color: var(--clr-nte); }
+.sb-game[data-game="nte"] .game-dot { background: var(--clr-nte); }
+
+.sb-game-children {
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height .3s ease;
+}
+.sb-game-children.collapsed { max-height: 0; }
+
+/* date group — collapsible */
+.sb-date { margin-bottom: 2px; }
+.sb-date-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px 5px 28px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a8099;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  user-select: none;
+  width: 100%;
+  background: none;
+  border-top: none; border-right: none; border-bottom: none;
+  text-align: left;
+}
+.sb-date-toggle:hover {
+  color: #c8b878;
+  background: rgba(200,184,120,.05);
+}
+.sb-date-toggle .arrow {
+  font-size: 10px;
+  transition: transform .2s;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  color: #4a5070;
+}
+.sb-date-toggle.collapsed .arrow { transform: rotate(-90deg); }
+.sb-date-toggle .date-label { flex: 1; }
+.sb-date-toggle .date-count {
+  font-size: 10px;
+  color: #3a3f5a;
+  font-weight: 400;
+}
+
+/* post title items under date */
+.sb-posts {
+  overflow: hidden;
+  max-height: 500px;
+  transition: max-height .25s ease;
+}
+.sb-posts.collapsed { max-height: 0; }
+
+.sb-post {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px 4px 48px;
+  font-size: 11px;
+  color: #5a6080;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+.sb-post:hover {
+  color: #b8a868;
+  background: rgba(200,184,120,.05);
+}
+
+.sb-game[data-game="endfield"] .sb-post.active { color: var(--clr-endfield); background: rgba(91,141,217,.08); border-left-color: var(--clr-endfield); }
+.sb-game[data-game="arknights"] .sb-post.active { color: var(--clr-arknights); background: rgba(232,197,109,.08); border-left-color: var(--clr-arknights); }
+.sb-game[data-game="zzz"] .sb-post.active { color: var(--clr-zzz); background: rgba(200,90,90,.08); border-left-color: var(--clr-zzz); }
+.sb-game[data-game="nte"] .sb-post.active { color: var(--clr-nte); background: rgba(123,107,196,.08); border-left-color: var(--clr-nte); }
+
+.sb-post .p-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #2e3248;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.sb-post:hover .p-dot,
+.sb-post.active .p-dot { background: currentColor; }
+
+/* sidebar toggle button (mobile) */
+#sb-toggle {
+  display: none;
+  position: fixed;
+  top: 14px; left: 14px;
+  z-index: 300;
+  background: #1a1e30;
+  border: 1px solid #2e3560;
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+  color: #9098b8;
+  font-size: 16px;
+}
+
+/* ── MAIN CONTENT ── */
+#main {
+  margin-left: 260px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #151828 0%, #1a1f3a 60%, #0e1520 100%);
+  padding: 36px 24px 28px;
+  text-align: center;
+  border-bottom: 2px solid var(--accent);
+}
+header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+header .subtitle { color: #7a8099; font-size: 13px; }
+header .stats {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #4a5070;
+}
+header .stats span {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+}
+
+/* ── CONTAINER ── */
+.container { max-width: 920px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── GAME SECTION ── */
+.game-section { margin-bottom: 40px; }
+.game-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 10px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.game-header .game-icon {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.game-header .game-name {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.game-header .game-post-count {
+  font-size: 11px;
+  color: #4a5070;
+  margin-left: auto;
+}
+
+.game-section[data-game="endfield"] .game-header { color: var(--clr-endfield); border-bottom-color: rgba(91,141,217,.3); }
+.game-section[data-game="endfield"] .game-icon { background: var(--clr-endfield); }
+.game-section[data-game="arknights"] .game-header { color: var(--clr-arknights); border-bottom-color: rgba(232,197,109,.3); }
+.game-section[data-game="arknights"] .game-icon { background: var(--clr-arknights); }
+.game-section[data-game="zzz"] .game-header { color: var(--clr-zzz); border-bottom-color: rgba(200,90,90,.3); }
+.game-section[data-game="zzz"] .game-icon { background: var(--clr-zzz); }
+.game-section[data-game="nte"] .game-header { color: var(--clr-nte); border-bottom-color: rgba(123,107,196,.3); }
+.game-section[data-game="nte"] .game-icon { background: var(--clr-nte); }
+
+/* ── DATE GROUP ── */
+.date-group { margin-bottom: 8px; }
+.date-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9098b8;
+  padding: 8px 0 6px;
+  border-bottom: 1px solid #1e2238;
+  margin-bottom: 12px;
+  scroll-margin-top: 20px;
+}
+
+/* ── POST CARD ── */
+.post-card {
+  background: #13162280;
+  border: 1px solid #1e2340;
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  margin-bottom: 14px;
+  scroll-margin-top: 20px;
+  transition: border-color .2s;
+}
+.post-card:hover { border-color: #2e3560; }
+.post-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.post-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gold-dim);
+  flex: 1;
+}
+.post-badge {
+  font-size: 11px;
+  color: #5a6080;
+  white-space: nowrap;
+  background: #1a1e30;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+.post-meta {
+  font-size: 12px;
+  color: #4a5070;
+  margin-bottom: 12px;
+}
+.post-meta a { color: #4a5070; text-decoration: none; }
+.post-meta a:hover { color: var(--accent); }
+
+/* ── IMAGE GRID ── */
+.img-grid {
+  display: grid;
+  gap: 8px;
+}
+.img-grid.cols-1 { grid-template-columns: 1fr; }
+.img-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.img-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+.img-wrap {
+  position: relative;
+  cursor: zoom-in;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0d0e14;
+  line-height: 0;
+}
+.img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity .2s;
+}
+.img-wrap:hover img { opacity: .88; }
+.gif-tag {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(200,90,90,.9);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: .5px;
+}
+
+/* ── LIGHTBOX ── */
+#lb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,6,12,.96);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+#lb.on { display: flex; }
+
+#lb-canvas {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#lb-canvas.dragging { cursor: grabbing; }
+
+#lb-img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 60px rgba(0,0,0,.8);
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  transition: none;
+}
+
+/* zoom controls */
+#lb-controls {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10,12,20,.85);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  padding: 6px 14px;
+  z-index: 10000;
+  backdrop-filter: blur(8px);
+}
+#lb-controls button {
+  background: none;
+  border: none;
+  color: #bbc0d4;
+  cursor: pointer;
+  font-size: 18px;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  transition: background .15s, color .15s;
+}
+#lb-controls button:hover { background: rgba(255,255,255,.12); color: #fff; }
+#lb-zoom-label {
+  font-size: 12px;
+  color: #7a8099;
+  width: 44px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+#lb-close {
+  position: fixed;
+  top: 18px; right: 22px;
+  z-index: 10000;
+  background: rgba(10,12,20,.75);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: #9098b8;
+  font-size: 20px;
+  transition: background .15s, color .15s;
+}
+#lb-close:hover { background: rgba(200,90,90,.5); color: #fff; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  #sb-toggle { display: flex; align-items: center; justify-content: center; }
+  .img-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  header h1 { font-size: 18px; }
+  header { padding-top: 50px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile toggle -->
+<button id="sb-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" title="目录">☰</button>
+
+<!-- ── SIDEBAR ── -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="s-title">SOCIAL IMAGE</div>
+    <div class="s-sub">微博社媒图片归档</div>
+  </div>
+
+  <!-- 明日方舟：终末地 -->
+  <div class="sb-game" data-game="endfield">
+    <button class="sb-game-toggle" onclick="toggleGame(this)">
+      <span class="arrow">▼</span>
+      <span class="game-dot"></span>
+      <span class="game-label">明日方舟：终末地</span>
+      <span class="game-count">15</span>
+    </button>
+    <div class="sb-game-children">
+      <div class="sb-date" data-date="date-0607-endfield">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-07 周日</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0607-3" data-target="post-0607-3"><span class="p-dot"></span>寻遗散记 · 后勤备忘</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0606-endfield">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-06 周六</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0606-3" data-target="post-0606-3"><span class="p-dot"></span>装饰物品</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0605-endfield">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-05 周五</span>
+          <span class="date-count">3</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0605-3" data-target="post-0605-3"><span class="p-dot"></span>寻遗散记</a>
+          <a class="sb-post" href="#post-0605-4" data-target="post-0605-4"><span class="p-dot"></span>拳出无悔</a>
+          <a class="sb-post" href="#post-0605-7" data-target="post-0605-7"><span class="p-dot"></span>寻遗散记</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0603-endfield">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-03 周三</span>
+          <span class="date-count">5</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0603-2" data-target="post-0603-2"><span class="p-dot"></span>寻遗散记</a>
+          <a class="sb-post" href="#post-0603-4" data-target="post-0603-4"><span class="p-dot"></span>以拳问心</a>
+          <a class="sb-post" href="#post-0603-5" data-target="post-0603-5"><span class="p-dot"></span>寻遗散记</a>
+          <a class="sb-post" href="#post-0603-6" data-target="post-0603-6"><span class="p-dot"></span>绛结申领</a>
+          <a class="sb-post" href="#post-0603-7" data-target="post-0603-7"><span class="p-dot"></span>拳出无悔</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0602-endfield">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-02 周二</span>
+          <span class="date-count">3</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0602-1" data-target="post-0602-1"><span class="p-dot"></span>武器档案</a>
+          <a class="sb-post" href="#post-0602-2" data-target="post-0602-2"><span class="p-dot"></span>寻剑幽谷</a>
+          <a class="sb-post" href="#post-0602-5" data-target="post-0602-5"><span class="p-dot"></span>协议通行证·苍山</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0601-endfield">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-01 周一</span>
+          <span class="date-count">2</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0601-1" data-target="post-0601-1"><span class="p-dot"></span>寻遗散记</a>
+          <a class="sb-post" href="#post-0601-6" data-target="post-0601-6"><span class="p-dot"></span>寻遗散记 · 什么烦恼</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 明日方舟 -->
+  <div class="sb-game" data-game="arknights">
+    <button class="sb-game-toggle" onclick="toggleGame(this)">
+      <span class="arrow">▼</span>
+      <span class="game-dot"></span>
+      <span class="game-label">明日方舟</span>
+      <span class="game-count">4</span>
+    </button>
+    <div class="sb-game-children">
+      <div class="sb-date" data-date="date-0605-arknights">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-05 周五</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0605-1" data-target="post-0605-1"><span class="p-dot"></span>阵地足球锦标</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0603-arknights">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-03 周三</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0603-3" data-target="post-0603-3"><span class="p-dot"></span>常驻标准寻访</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0601-arknights">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-01 周一</span>
+          <span class="date-count">2</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0601-2" data-target="post-0601-2"><span class="p-dot"></span>抓稳啦，一起绕过月亮</a>
+          <a class="sb-post" href="#post-0601-5" data-target="post-0601-5"><span class="p-dot"></span>泡影苍霆</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 绝区零 -->
+  <div class="sb-game" data-game="zzz">
+    <button class="sb-game-toggle" onclick="toggleGame(this)">
+      <span class="arrow">▼</span>
+      <span class="game-dot"></span>
+      <span class="game-label">绝区零</span>
+      <span class="game-count">9</span>
+    </button>
+    <div class="sb-game-children">
+      <div class="sb-date" data-date="date-0607-zzz">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-07 周日</span>
+          <span class="date-count">2</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0607-1" data-target="post-0607-1"><span class="p-dot"></span>某个梦游者的自白</a>
+          <a class="sb-post" href="#post-0607-2" data-target="post-0607-2"><span class="p-dot"></span>千夏、南宫？</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0606-zzz">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-06 周六</span>
+          <span class="date-count">3</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0606-1" data-target="post-0606-1"><span class="p-dot"></span>某个梦游者的自白</a>
+          <a class="sb-post" href="#post-0606-2" data-target="post-0606-2"><span class="p-dot"></span>回归丽都：共启新章</a>
+          <a class="sb-post" href="#post-0606-5" data-target="post-0606-5"><span class="p-dot"></span>早安，罗斯凯利法</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0605-zzz">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-05 周五</span>
+          <span class="date-count">2</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0605-2" data-target="post-0605-2"><span class="p-dot"></span>随机角色立牌*1</a>
+          <a class="sb-post" href="#post-0605-5" data-target="post-0605-5"><span class="p-dot"></span>早安，罗斯凯利法</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0602-zzz">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-02 周二</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0602-3" data-target="post-0602-3"><span class="p-dot"></span>诶…诶？！幸运梦想家</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0601-zzz">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-01 周一</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0601-4" data-target="post-0601-4"><span class="p-dot"></span>日安，罗斯凯利法</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 异环 -->
+  <div class="sb-game" data-game="nte">
+    <button class="sb-game-toggle" onclick="toggleGame(this)">
+      <span class="arrow">▼</span>
+      <span class="game-dot"></span>
+      <span class="game-label">异环</span>
+      <span class="game-count">6</span>
+    </button>
+    <div class="sb-game-children">
+      <div class="sb-date" data-date="date-0606-nte">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-06 周六</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0606-4" data-target="post-0606-4"><span class="p-dot"></span>小羊是大坏蛋吗？</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0605-nte">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-05 周五</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0605-6" data-target="post-0605-6"><span class="p-dot"></span>想消磨时间的话</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0603-nte">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-03 周三</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0603-1" data-target="post-0603-1"><span class="p-dot"></span>海特洛来信</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0602-nte">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-02 周二</span>
+          <span class="date-count">1</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0602-4" data-target="post-0602-4"><span class="p-dot"></span>安魂曲角色EP</a>
+        </div>
+      </div>
+      <div class="sb-date" data-date="date-0601-nte">
+        <button class="sb-date-toggle" onclick="toggleDate(this)">
+          <span class="arrow">▼</span>
+          <span class="date-label">06-01 周一</span>
+          <span class="date-count">2</span>
+        </button>
+        <div class="sb-posts">
+          <a class="sb-post" href="#post-0601-3" data-target="post-0601-3"><span class="p-dot"></span>你好，我领一个冰淇淋~♪</a>
+          <a class="sb-post" href="#post-0601-7" data-target="post-0601-7"><span class="p-dot"></span>番茄……有很多……喜欢。</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<div id="main">
+<header>
+  <h1>四款游戏 · 微博社媒图片汇总</h1>
+  <p class="subtitle">明日方舟：终末地 / 明日方舟 / 绝区零 / 异环 — 2026.06.01–06.07</p>
+  <p class="stats">
+    <span style="color:var(--clr-endfield);border:1px solid rgba(91,141,217,.3);background:rgba(91,141,217,.1)">终末地 15帖</span>
+    <span style="color:var(--clr-arknights);border:1px solid rgba(232,197,109,.3);background:rgba(232,197,109,.1)">明日方舟 4帖</span>
+    <span style="color:var(--clr-zzz);border:1px solid rgba(200,90,90,.3);background:rgba(200,90,90,.1)">绝区零 9帖</span>
+    <span style="color:var(--clr-nte);border:1px solid rgba(123,107,196,.3);background:rgba(123,107,196,.1)">异环 6帖</span>
+  </p>
+</header>
+
+<div class="container">
+
+<!-- ══════════════ 明日方舟：终末地 ══════════════ -->
+<div class="game-section" data-game="endfield">
+  <div class="game-header"><span class="game-icon"></span><span class="game-name">明日方舟：终末地</span><span class="game-post-count">15 条帖子</span></div>
+
+  <div class="date-group">
+    <div id="date-0607-endfield" class="date-header">06-07 周日</div>
+    <div id="post-0607-3" class="post-card">
+      <div class="post-header"><span class="post-title">寻遗散记 · 后勤备忘 - 独家揭秘</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7745672941/5307142346116939" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-07_5307142346116939_008sc3mJgy1iduqluk43pj30rs46tb2b.jpg')">
+          <img src="images/endfield_2026-06-07_5307142346116939_008sc3mJgy1iduqluk43pj30rs46tb2b.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0606-endfield" class="date-header">06-06 周六</div>
+    <div id="post-0606-3" class="post-card">
+      <div class="post-header"><span class="post-title">装饰物品</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7745672941/5306870555481486" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-06_5306870555481486_008sc3mJgy1iduqazoqcnj30rs4l04qq.jpg')">
+          <img src="images/endfield_2026-06-06_5306870555481486_008sc3mJgy1iduqazoqcnj30rs4l04qq.jpg" alt="装饰物品" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0605-endfield" class="date-header">06-05 周五</div>
+    <div id="post-0605-3" class="post-card">
+      <div class="post-header"><span class="post-title">寻遗散记</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">13:00 · <a href="https://weibo.com/7745672941/5306432670143888" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-05_5306432670143888_008sc3mJgy1idtid5ku9yj30rs8bcqv6.jpg')">
+          <img src="images/endfield_2026-06-05_5306432670143888_008sc3mJgy1idtid5ku9yj30rs8bcqv6.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0605-4" class="post-card">
+      <div class="post-header"><span class="post-title">拳出无悔</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:30 · <a href="https://weibo.com/7745672941/5306425120397019" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-05_5306425120397019_008sc3mJgy1idtjgi7g92j31hc0u07n6.jpg')">
+          <img src="images/endfield_2026-06-05_5306425120397019_008sc3mJgy1idtjgi7g92j31hc0u07n6.jpg" alt="拳出无悔" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0605-7" class="post-card">
+      <div class="post-header"><span class="post-title">寻遗散记</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7745672941/5306417570906820" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-05_5306417570906820_008sc3mJgy1idtj2j9yrmj31hc0u0npe.jpg')">
+          <img src="images/endfield_2026-06-05_5306417570906820_008sc3mJgy1idtj2j9yrmj31hc0u0npe.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0603-endfield" class="date-header">06-03 周三</div>
+    <div id="post-0603-2" class="post-card">
+      <div class="post-header"><span class="post-title">寻遗散记</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7745672941/5305783396339222" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-03_5305783396339222_008sc3mJgy1idr71xmxdqj31hc25ekjo.jpg')">
+          <img src="images/endfield_2026-06-03_5305783396339222_008sc3mJgy1idr71xmxdqj31hc25ekjo.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0603-4" class="post-card">
+      <div class="post-header"><span class="post-title">以拳问心</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">13:00 · <a href="https://weibo.com/7745672941/5305707894935292" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-03_5305707894935292_008sc3mJgy1idr6xefl3hj318g0p0nhv.jpg')">
+          <img src="images/endfield_2026-06-03_5305707894935292_008sc3mJgy1idr6xefl3hj318g0p0nhv.jpg" alt="以拳问心" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0603-5" class="post-card">
+      <div class="post-header"><span class="post-title">寻遗散记</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:30 · <a href="https://weibo.com/7745672941/5305700344663921" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-03_5305700344663921_008sc3mJgy1idr6v5i8ojj318g0p0x0v.jpg')">
+          <img src="images/endfield_2026-06-03_5305700344663921_008sc3mJgy1idr6v5i8ojj318g0p0x0v.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0603-6" class="post-card">
+      <div class="post-header"><span class="post-title">绛结申领</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:15 · <a href="https://weibo.com/7745672941/5305696569526423" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-03_5305696569526423_008sc3mJgy1idr6rrc2qlj318g0p0to6.jpg')">
+          <img src="images/endfield_2026-06-03_5305696569526423_008sc3mJgy1idr6rrc2qlj318g0p0to6.jpg" alt="绛结申领" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0603-7" class="post-card">
+      <div class="post-header"><span class="post-title">拳出无悔</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7745672941/5305692795175725" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-03_5305692795175725_008sc3mJgy1idr6nil7rrj318g0p0nhl.jpg')">
+          <img src="images/endfield_2026-06-03_5305692795175725_008sc3mJgy1idr6nil7rrj318g0p0nhl.jpg" alt="拳出无悔" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0602-endfield" class="date-header">06-02 周二</div>
+    <div id="post-0602-1" class="post-card">
+      <div class="post-header"><span class="post-title">武器档案</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7745672941/5305421004279131" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-02_5305421004279131_008sc3mJgy1idq1ih1dn0j30rs1d31kx.jpg')">
+          <img src="images/endfield_2026-06-02_5305421004279131_008sc3mJgy1idq1ih1dn0j30rs1d31kx.jpg" alt="武器档案" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0602-2" class="post-card">
+      <div class="post-header"><span class="post-title">寻剑幽谷</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">14:00 · <a href="https://weibo.com/7745672941/5305360606562210" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-02_5305360606562210_008sc3mJgy1idq1hkz7qlj318g0p0e1m.jpg')">
+          <img src="images/endfield_2026-06-02_5305360606562210_008sc3mJgy1idq1hkz7qlj318g0p0e1m.jpg" alt="寻剑幽谷" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0602-5" class="post-card">
+      <div class="post-header"><span class="post-title">协议通行证·苍山</span><span class="post-badge">2张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7745672941/5305330407310917" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-02_5305330407310917_008sc3mJgy1idq1clswjmj318g0p0dtm.jpg')">
+          <img src="images/endfield_2026-06-02_5305330407310917_008sc3mJgy1idq1clswjmj318g0p0dtm.jpg" alt="协议通行证" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-02_5305330407310917_008sc3mJgy1idq1cltis9j30p018g1kx.jpg')">
+          <img src="images/endfield_2026-06-02_5305330407310917_008sc3mJgy1idq1cltis9j30p018g1kx.jpg" alt="协议通行证" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0601-endfield" class="date-header">06-01 周一</div>
+    <div id="post-0601-1" class="post-card">
+      <div class="post-header"><span class="post-title">寻遗散记</span><span class="post-badge">2张图</span></div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7745672941/5305058620604581" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-01_5305058620604581_008sc3mJgy1idpvfswnzij30rs9ixqv7.jpg')">
+          <img src="images/endfield_2026-06-01_5305058620604581_008sc3mJgy1idpvfswnzij30rs9ixqv7.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-01_5305058620604581_008sc3mJgy1idpvfvx21oj30rsa5ykjn.jpg')">
+          <img src="images/endfield_2026-06-01_5305058620604581_008sc3mJgy1idpvfvx21oj30rsa5ykjn.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0601-6" class="post-card">
+      <div class="post-header"><span class="post-title">寻遗散记 · 什么烦恼也不许想！</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">11:00 · <a href="https://weibo.com/7745672941/5304952919427405" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/endfield_2026-06-01_5304952919427405_008sc3mJgy1idmn645t58j31hc0u0wyl.jpg')">
+          <img src="images/endfield_2026-06-01_5304952919427405_008sc3mJgy1idmn645t58j31hc0u0wyl.jpg" alt="寻遗散记" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 明日方舟 ══════════════ -->
+<div class="game-section" data-game="arknights">
+  <div class="game-header"><span class="game-icon"></span><span class="game-name">明日方舟</span><span class="game-post-count">4 条帖子</span></div>
+
+  <div class="date-group">
+    <div id="date-0605-arknights" class="date-header">06-05 周五</div>
+    <div id="post-0605-1" class="post-card">
+      <div class="post-header"><span class="post-title">阵地足球锦标</span><span class="post-badge">2张图</span></div>
+      <div class="post-meta">19:30 · <a href="https://weibo.com/6279793937/5306530987774530" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+        <div class="img-wrap" onclick="openLb('images/arknights_2026-06-05_5306530987774530_006QZngZgy1idunm6ygzlj30rs8l64qr.jpg')">
+          <img src="images/arknights_2026-06-05_5306530987774530_006QZngZgy1idunm6ygzlj30rs8l64qr.jpg" alt="阵地足球锦标" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/arknights_2026-06-05_5306530987774530_006QZngZgy1idunm6vu30j30rs63we82.jpg')">
+          <img src="images/arknights_2026-06-05_5306530987774530_006QZngZgy1idunm6vu30j30rs63we82.jpg" alt="阵地足球锦标" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0603-arknights" class="date-header">06-03 周三</div>
+    <div id="post-0603-3" class="post-card">
+      <div class="post-header"><span class="post-title">常驻标准寻访</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">17:00 · <a href="https://weibo.com/6279793937/5305768292911922" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/arknights_2026-06-03_5305768292911922_006QZngZgy1ids7gvrmgpj319u0v41ky.jpg')">
+          <img src="images/arknights_2026-06-03_5305768292911922_006QZngZgy1ids7gvrmgpj319u0v41ky.jpg" alt="常驻标准寻访" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0601-arknights" class="date-header">06-01 周一</div>
+    <div id="post-0601-2" class="post-card">
+      <div class="post-header"><span class="post-title">抓稳啦，一起绕过月亮，去与每一颗星星问好</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">16:00 · <a href="https://weibo.com/6279793937/5305028417423711" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/arknights_2026-06-01_5305028417423711_006QZngZgy1idpse0rcoqj31hc0u0npe.jpg')">
+          <img src="images/arknights_2026-06-01_5305028417423711_006QZngZgy1idpse0rcoqj31hc0u0npe.jpg" alt="抓稳啦" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0601-5" class="post-card">
+      <div class="post-header"><span class="post-title">泡影苍霆</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/6279793937/5304968023901981" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/arknights_2026-06-01_5304968023901981_006QZngZgy1idpn97jvkij31hc0u07wh.jpg')">
+          <img src="images/arknights_2026-06-01_5304968023901981_006QZngZgy1idpn97jvkij31hc0u07wh.jpg" alt="泡影苍霆" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 绝区零 ══════════════ -->
+<div class="game-section" data-game="zzz">
+  <div class="game-header"><span class="game-icon"></span><span class="game-name">绝区零</span><span class="game-post-count">9 条帖子</span></div>
+
+  <div class="date-group">
+    <div id="date-0607-zzz" class="date-header">06-07 周日</div>
+    <div id="post-0607-1" class="post-card">
+      <div class="post-header"><span class="post-title">某个梦游者的自白</span><span class="post-badge">3张图</span></div>
+      <div class="post-meta">12:31 · <a href="https://weibo.com/7632078520/5307150232456677" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-3">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-07_5307150232456677_008kvqgEgy1idwms7vzfkj30u02sbkjl.jpg')">
+          <img src="images/zzz_2026-06-07_5307150232456677_008kvqgEgy1idwms7vzfkj30u02sbkjl.jpg" alt="某个梦游者的自白" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-07_5307150232456677_008kvqgEgy1idwms9hu5cj30u03fz1ky.jpg')">
+          <img src="images/zzz_2026-06-07_5307150232456677_008kvqgEgy1idwms9hu5cj30u03fz1ky.jpg" alt="某个梦游者的自白" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-07_5307150232456677_008kvqgEgy1idwmsbin1pg30u01lyqvb.gif')">
+          <img src="images/zzz_2026-06-07_5307150232456677_008kvqgEgy1idwmsbin1pg30u01lyqvb.gif" alt="某个梦游者的自白" loading="lazy">
+          <span class="gif-tag">GIF</span>
+        </div>
+      </div>
+    </div>
+    <div id="post-0607-2" class="post-card">
+      <div class="post-header"><span class="post-title">千夏、南宫？我的台本是不是出错了</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7632078520/5307142346637798" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-07_5307142346637798_008kvqgEgy1idw1ioyqs0j31ri2q8u12.jpg')">
+          <img src="images/zzz_2026-06-07_5307142346637798_008kvqgEgy1idw1ioyqs0j31ri2q8u12.jpg" alt="千夏、南宫" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0606-zzz" class="date-header">06-06 周六</div>
+    <div id="post-0606-1" class="post-card">
+      <div class="post-header"><span class="post-title">某个梦游者的自白</span><span class="post-badge">3张图</span></div>
+      <div class="post-meta">20:35 · <a href="https://weibo.com/7632078520/5306909562246178" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-3">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-06_5306909562246178_008kvqgEgy1idvqmzkruzj30u07ogu10.jpg')">
+          <img src="images/zzz_2026-06-06_5306909562246178_008kvqgEgy1idvqmzkruzj30u07ogu10.jpg" alt="某个梦游者的自白" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-06_5306909562246178_008kvqgEgy1idvqn0hw9lj30u0b0iu12.jpg')">
+          <img src="images/zzz_2026-06-06_5306909562246178_008kvqgEgy1idvqn0hw9lj30u0b0iu12.jpg" alt="某个梦游者的自白" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-06_5306909562246178_008kvqgEgy1idvqn17i69j30u0a02hdy.jpg')">
+          <img src="images/zzz_2026-06-06_5306909562246178_008kvqgEgy1idvqn17i69j30u0a02hdy.jpg" alt="某个梦游者的自白" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0606-2" class="post-card">
+      <div class="post-header"><span class="post-title">回归丽都：共启新章</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">20:00 · <a href="https://weibo.com/7632078520/5306900754727895" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-06_5306900754727895_008kvqgEgy1idvpbpc18ej31hc0u0b2a.jpg')">
+          <img src="images/zzz_2026-06-06_5306900754727895_008kvqgEgy1idvpbpc18ej31hc0u0b2a.jpg" alt="回归丽都" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0606-5" class="post-card">
+      <div class="post-header"><span class="post-title">早安，罗斯凯利法</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">10:00 · <a href="https://weibo.com/7632078520/5306749759523032" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-06_5306749759523032_008kvqgEgy1idut3oe1q5j31hc0u0qk4.jpg')">
+          <img src="images/zzz_2026-06-06_5306749759523032_008kvqgEgy1idut3oe1q5j31hc0u0qk4.jpg" alt="早安，罗斯凯利法" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0605-zzz" class="date-header">06-05 周五</div>
+    <div id="post-0605-2" class="post-card">
+      <div class="post-header"><span class="post-title">随机角色立牌*1</span><span class="post-badge">5张图</span></div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7632078520/5306508167354518" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-3">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjramnj30xc18b4qq.jpg')">
+          <img src="images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjramnj30xc18b4qq.jpg" alt="随机角色立牌" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjrvgjj30xc18b1ky.jpg')">
+          <img src="images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjrvgjj30xc18b1ky.jpg" alt="随机角色立牌" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjqv6wj30xc18bx6p.jpg')">
+          <img src="images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjqv6wj30xc18bx6p.jpg" alt="随机角色立牌" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjqidtj30xc18bx6p.jpg')">
+          <img src="images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idukvjqidtj30xc18bx6p.jpg" alt="随机角色立牌" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idultm5wkwj30xc18b1ky.jpg')">
+          <img src="images/zzz_2026-06-05_5306508167354518_008kvqgEgy1idultm5wkwj30xc18b1ky.jpg" alt="随机角色立牌" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0605-5" class="post-card">
+      <div class="post-header"><span class="post-title">早安，罗斯凯利法</span><span class="post-badge">4张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7632078520/5306417570387904" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-3">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idu9zguf6wj30xc18g1ky.jpg')">
+          <img src="images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idu9zguf6wj30xc18g1ky.jpg" alt="早安" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idub6fgxwrj30xc18qnpd.jpg')">
+          <img src="images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idub6fgxwrj30xc18qnpd.jpg" alt="早安" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idub6gpgz4j30xc18qqv5.jpg')">
+          <img src="images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idub6gpgz4j30xc18qqv5.jpg" alt="早安" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idub6i2lkoj30xc18qe81.jpg')">
+          <img src="images/zzz_2026-06-05_5306417570387904_008kvqgEgy1idub6i2lkoj30xc18qe81.jpg" alt="早安" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0602-zzz" class="date-header">06-02 周二</div>
+    <div id="post-0602-3" class="post-card">
+      <div class="post-header"><span class="post-title">诶…诶？！我、我是被选中的『幸运梦想家』</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7632078520/5305330634591822" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-02_5305330634591822_008kvqgEgy1idqygjdj4ij31ri2q84qv.jpg')">
+          <img src="images/zzz_2026-06-02_5305330634591822_008kvqgEgy1idqygjdj4ij31ri2q84qv.jpg" alt="幸运梦想家" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0601-zzz" class="date-header">06-01 周一</div>
+    <div id="post-0601-4" class="post-card">
+      <div class="post-header"><span class="post-title">日安，欢迎来到罗斯凯利法。</span><span class="post-badge">2张图</span></div>
+      <div class="post-meta">12:30 · <a href="https://weibo.com/7632078520/5304975568931496" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-01_5304975568931496_008kvqgEgy1idpojnq2bwj31z4140kjn.jpg')">
+          <img src="images/zzz_2026-06-01_5304975568931496_008kvqgEgy1idpojnq2bwj31z4140kjn.jpg" alt="日安" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/zzz_2026-06-01_5304975568931496_008kvqgEgy1idpojoae6oj30zu25ob2b.jpg')">
+          <img src="images/zzz_2026-06-01_5304975568931496_008kvqgEgy1idpojoae6oj30zu25ob2b.jpg" alt="日安" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 异环 ══════════════ -->
+<div class="game-section" data-game="nte">
+  <div class="game-header"><span class="game-icon"></span><span class="game-name">异环</span><span class="game-post-count">6 条帖子</span></div>
+
+  <div class="date-group">
+    <div id="date-0606-nte" class="date-header">06-06 周六</div>
+    <div id="post-0606-4" class="post-card">
+      <div class="post-header"><span class="post-title">听说在有些地方，羊是邪恶的象征呢……</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7929584207/5306779959035253" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-06_5306779959035253_008EDJ5tgy1iduo94oyqcj32yo1o07wi.jpg')">
+          <img src="images/nte_2026-06-06_5306779959035253_008EDJ5tgy1iduo94oyqcj32yo1o07wi.jpg" alt="羊" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0605-nte" class="date-header">06-05 周五</div>
+    <div id="post-0605-6" class="post-card">
+      <div class="post-header"><span class="post-title">想消磨时间的话，找我可不是个好选择。</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7929584207/5306417570382636" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-05_5306417570382636_008EDJ5tgy1idu6p011jvj32yo1o07wi.jpg')">
+          <img src="images/nte_2026-06-05_5306417570382636_008EDJ5tgy1idu6p011jvj32yo1o07wi.jpg" alt="想消磨时间" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0603-nte" class="date-header">06-03 周三</div>
+    <div id="post-0603-1" class="post-card">
+      <div class="post-header"><span class="post-title">《异环》海特洛来信</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">23:30 · <a href="https://weibo.com/7929584207/5305866454567365" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-03_5305866454567365_008EDJ5tgy1idsjccbus8j32yo1o0x6w.jpg')">
+          <img src="images/nte_2026-06-03_5305866454567365_008EDJ5tgy1idsjccbus8j32yo1o0x6w.jpg" alt="海特洛来信" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0602-nte" class="date-header">06-02 周二</div>
+    <div id="post-0602-4" class="post-card">
+      <div class="post-header"><span class="post-title">安魂曲角色EP《100% Cr》</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7929584207/5305330407048300" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-02_5305330407048300_008EDJ5tgy1idqtm5pb23j315o15o4ob.jpg')">
+          <img src="images/nte_2026-06-02_5305330407048300_008EDJ5tgy1idqtm5pb23j315o15o4ob.jpg" alt="安魂曲角色EP" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-group">
+    <div id="date-0601-nte" class="date-header">06-01 周一</div>
+    <div id="post-0601-3" class="post-card">
+      <div class="post-header"><span class="post-title">你好，我领一个冰淇淋~♪</span><span class="post-badge">1张图</span></div>
+      <div class="post-meta">14:00 · <a href="https://weibo.com/7929584207/5304998217911255" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304998217911255_008EDJ5tgy1idppaw5c8mj31hc0u04qp.jpg')">
+          <img src="images/nte_2026-06-01_5304998217911255_008EDJ5tgy1idppaw5c8mj31hc0u04qp.jpg" alt="冰淇淋" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div id="post-0601-7" class="post-card">
+      <div class="post-header"><span class="post-title">番茄……有很多……喜欢。</span><span class="post-badge">9张图</span></div>
+      <div class="post-meta">10:10 · <a href="https://weibo.com/7929584207/5304940366924285" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-3">
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1ryquqj33eo1x01l0.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1ryquqj33eo1x01l0.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1vsr27j33341qgqv7.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1vsr27j33341qgqv7.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1q90tgj31pc0yiquk.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1q90tgj31pc0yiquk.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1x7sgvj33df1wcx6t.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1x7sgvj33df1wcx6t.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1t3r2dj32qf1jde84.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1t3r2dj32qf1jde84.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1tp0zvj33341qihdw.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1tp0zvj33341qihdw.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1r078nj33eo1x0e82.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1r078nj33eo1x0e82.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1v6almj35402vi1l2.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1v6almj35402vi1l2.jpg" alt="番茄" loading="lazy">
+        </div>
+        <div class="img-wrap" onclick="openLb('images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1xwnryj32tz1jk7wj.jpg')">
+          <img src="images/nte_2026-06-01_5304940366924285_008EDJ5tgy1idpl1xwnryj32tz1jk7wj.jpg" alt="番茄" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /main -->
+
+<!-- ── LIGHTBOX ── -->
+<div id="lb">
+  <div id="lb-canvas">
+    <img id="lb-img" src="" alt="preview">
+  </div>
+  <button id="lb-close" onclick="closeLb()" title="关闭 (Esc)">✕</button>
+  <div id="lb-controls">
+    <button onclick="zoomBy(-0.25)" title="缩小">－</button>
+    <span id="lb-zoom-label">100%</span>
+    <button onclick="zoomBy(0.25)" title="放大">＋</button>
+    <button onclick="resetZoom()" title="重置">⤢</button>
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────
+   LIGHTBOX with pan & zoom
+───────────────────────────────── */
+const lb      = document.getElementById('lb');
+const canvas  = document.getElementById('lb-canvas');
+const lbImg   = document.getElementById('lb-img');
+const zLabel  = document.getElementById('lb-zoom-label');
+
+let scale = 1, tx = 0, ty = 0;
+let dragging = false, startX, startY, startTx, startTy;
+let lastDist = null;
+
+const MIN_SCALE = 0.2, MAX_SCALE = 8;
+
+function applyTransform(smooth) {
+  lbImg.style.transition = smooth ? 'transform .2s ease' : 'none';
+  lbImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  zLabel.textContent = Math.round(scale * 100) + '%';
+}
+
+function openLb(src) {
+  scale = 1; tx = 0; ty = 0;
+  lbImg.src = src;
+  lb.classList.add('on');
+  applyTransform(false);
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLb() {
+  lb.classList.remove('on');
+  lbImg.src = '';
+  document.body.style.overflow = '';
+}
+
+function zoomBy(delta) {
+  scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
+  applyTransform(true);
+}
+
+function resetZoom() {
+  scale = 1; tx = 0; ty = 0;
+  applyTransform(true);
+}
+
+/* Scroll wheel zoom */
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 1.12 : 0.88;
+  const rect = canvas.getBoundingClientRect();
+  const ox = e.clientX - rect.left - rect.width  / 2;
+  const oy = e.clientY - rect.top  - rect.height / 2;
+  const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale * factor));
+  const ratio = newScale / scale;
+  tx = ox + (tx - ox) * ratio;
+  ty = oy + (ty - oy) * ratio;
+  scale = newScale;
+  applyTransform(false);
+}, { passive: false });
+
+/* Drag to pan */
+canvas.addEventListener('mousedown', e => {
+  if (e.button !== 0) return;
+  dragging = true;
+  startX = e.clientX; startY = e.clientY;
+  startTx = tx; startTy = ty;
+  canvas.classList.add('dragging');
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  tx = startTx + (e.clientX - startX);
+  ty = startTy + (e.clientY - startY);
+  applyTransform(false);
+});
+window.addEventListener('mouseup', () => {
+  dragging = false;
+  canvas.classList.remove('dragging');
+});
+
+/* Click backdrop to close */
+let clickMoved = false;
+canvas.addEventListener('mousedown', () => { clickMoved = false; });
+canvas.addEventListener('mousemove', () => { clickMoved = true; });
+canvas.addEventListener('mouseup', e => {
+  if (!clickMoved && e.target === canvas) closeLb();
+});
+
+/* Touch pinch-to-zoom */
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    lastDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  } else if (e.touches.length === 1) {
+    dragging = true;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    startTx = tx; startTy = ty;
+  }
+}, { passive: true });
+
+canvas.addEventListener('touchmove', e => {
+  if (e.touches.length === 2) {
+    e.preventDefault();
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    if (lastDist) {
+      const ratio = dist / lastDist;
+      scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale * ratio));
+      applyTransform(false);
+    }
+    lastDist = dist;
+  } else if (e.touches.length === 1 && dragging) {
+    tx = startTx + (e.touches[0].clientX - startX);
+    ty = startTy + (e.touches[0].clientY - startY);
+    applyTransform(false);
+  }
+}, { passive: false });
+
+canvas.addEventListener('touchend', e => {
+  if (e.touches.length < 2) lastDist = null;
+  if (e.touches.length === 0) dragging = false;
+});
+
+/* Keyboard */
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === '+' || e.key === '=') zoomBy(0.25);
+  if (e.key === '-') zoomBy(-0.25);
+  if (e.key === '0') resetZoom();
+});
+
+/* ─────────────────────────────────
+   SIDEBAR: Game → Date → Post tracking
+───────────────────────────────── */
+
+/* Toggle game collapse */
+function toggleGame(btn) {
+  const children = btn.nextElementSibling;
+  btn.classList.toggle('collapsed');
+  children.classList.toggle('collapsed');
+}
+
+/* Toggle date collapse */
+function toggleDate(btn) {
+  const posts = btn.nextElementSibling;
+  btn.classList.toggle('collapsed');
+  posts.classList.toggle('collapsed');
+}
+
+/* Click date label → scroll to date header */
+document.querySelectorAll('.sb-date-toggle').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const dateId = this.closest('.sb-date').dataset.date;
+    const target = document.getElementById(dateId);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+/* Click game label → scroll to game section */
+document.querySelectorAll('.sb-game-toggle').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    // Only scroll on the main label click area, not the arrow
+    const gameId = this.closest('.sb-game').dataset.game;
+    const target = document.querySelector(`.game-section[data-game="${gameId}"]`);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+/* Click post title → scroll to post card */
+document.querySelectorAll('.sb-post').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById(link.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+/* Scroll spy — highlight current post & auto-expand its game + date group */
+const postCards = document.querySelectorAll('.post-card[id]');
+const sbGames = document.querySelectorAll('.sb-game');
+
+function updateSidebar() {
+  const scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+  let currentPostId = null;
+
+  postCards.forEach(el => {
+    if (el.offsetTop - 80 <= scrollY) currentPostId = el.id;
+  });
+
+  // Highlight current post
+  document.querySelectorAll('.sb-post').forEach(link => {
+    link.classList.toggle('active', link.dataset.target === currentPostId);
+  });
+
+  if (currentPostId) {
+    const currentCard = document.getElementById(currentPostId);
+    const gameSection = currentCard.closest('.game-section');
+    const dateHeader = currentCard.closest('.date-group').querySelector('.date-header');
+    const currentGame = gameSection ? gameSection.dataset.game : null;
+    const currentDate = dateHeader ? dateHeader.id : null;
+
+    sbGames.forEach(sbGame => {
+      const isGameMatch = sbGame.dataset.game === currentGame;
+      const gameChildren = sbGame.querySelector('.sb-game-children');
+      const gameToggle = sbGame.querySelector('.sb-game-toggle');
+
+      if (isGameMatch && gameChildren.classList.contains('collapsed')) {
+        gameChildren.classList.remove('collapsed');
+        gameToggle.classList.remove('collapsed');
+      }
+
+      sbGame.querySelectorAll('.sb-date').forEach(sbDate => {
+        const isDateMatch = sbDate.dataset.date === currentDate;
+        const dateToggle = sbDate.querySelector('.sb-date-toggle');
+        const posts = sbDate.querySelector('.sb-posts');
+
+        if (isGameMatch && isDateMatch && posts.classList.contains('collapsed')) {
+          posts.classList.remove('collapsed');
+          dateToggle.classList.remove('collapsed');
+        }
+      });
+    });
+  }
+}
+
+window.addEventListener('scroll', updateSidebar, { passive: true });
+updateSidebar();
+</script>
+
+</body>
+</html>
