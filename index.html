@@ -12,7 +12,7 @@ body{position:relative;overflow-x:hidden;
   min-height:100vh;padding:0 20px}
 #bg-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .container{max-width:580px;width:100%;margin:0 auto;position:relative;z-index:1}
-.brand{text-align:center;padding-top:42vh;margin-bottom:32px}
+.brand{display:flex;flex-direction:column;align-items:center;padding-top:42vh;margin-bottom:32px;overflow:hidden}
 .brand h1{font-size:118px;font-weight:900;color:#e8c56d;letter-spacing:8px;line-height:1;white-space:nowrap;text-align:center}
 .brand .tag{display:inline-block;margin-top:16px;padding:6px 20px;
   background:rgba(232,197,109,.08);border:1px solid rgba(232,197,109,.18);
@@ -40,7 +40,7 @@ body{position:relative;overflow-x:hidden;
 .footer{text-align:center;margin-top:48px;color:#2a2e40;font-size:11px;letter-spacing:2px}
 @media(max-width:480px){body{padding:0 16px}
   .brand{padding-top:20vh}
-  .brand h1{font-size:40px}.week-link{padding:14px 16px}}
+  .brand h1{font-size:48px;letter-spacing:4px}.week-link{padding:14px 16px}}
 </style>
 </head>
 <body>
