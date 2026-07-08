@@ -131,9 +131,9 @@ class Ic{
  }
 }
 Ic.list=[];
-let lc=0;ID.forEach((s,i)=>{const img=new Image();img.onload=()=>{lc++;if(lc===ID.length)go()};img.src=s;Ic.list.push(new Ic(i,img))});
+let lc=0;const loadedImgs=[];ID.forEach((s,i)=>{const img=new Image();img.onload=()=>{lc++;if(lc===ID.length)initIcons()};img.src=s;loadedImgs[i]=img});function initIcons(){for(let g=0;g<ID.length;g++){Ic.list.push(new Ic(g*2,loadedImgs[g]));Ic.list.push(new Ic(g*2+1,loadedImgs[g]))}go()}
 if(lc===ID.length)go();
-function go(){Ic.list.forEach((c,i)=>setTimeout(()=>c.sp(),i*900+Math.random()*400));an()}
+function go(){Ic.list.forEach((c,i)=>setTimeout(()=>c.sp(),i*350+Math.random()*600));an()}
 function an(){
  Ic.list.forEach(c=>{if(c.s==="I"){c.t--;if(c.t<=0)c.sp()}c.up()});
  X.clearRect(0,0,W,H);Ic.list.forEach(c=>c.dr());
