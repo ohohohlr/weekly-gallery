@@ -78,12 +78,12 @@ addEventListener("resize",rs);rs();
 class Ic{
  constructor(i,img){this.i=i;this.img=img;this.x=0;this.y=0;this.vx=0;this.vy=0;this.rot=0;this.o=1;this.s="I";this.t=0;this.rx()}
  rx(){this.x=S+10+Math.random()*(W-S*2-20)}
- sp(){this.rx();this.y=-S*2-Math.random()*50;this.vx=(Math.random()-.5)*.4;this.vy=0;this.rot=0;this.o=1;this.s="F"}
+ sp(){this.rx();this.y=-S*2-Math.random()*50;this.vx=(Math.random()-.5)*.4;this.vy=0;this.rot=Math.random()*6.2832;this.o=1;this.s="F"}
  up(){
   switch(this.s){
    case"F":
     this.vy+=.22;this.x+=this.vx;this.y+=this.vy;
-    this.rot+=this.vx*.03;
+    this.rot+=this.vx*.04;
     if(this.y+S>=H-20){this.y=H-20-S;this.vy*=-.25;this.vx*=.88;if(Math.abs(this.vy)<.3){this.vy=0;this.s="R";this.t=100+~~(Math.random()*60)}}
     if(this.x<S){this.x=S;this.vx*=-.5}
     if(this.x>W-S){this.x=W-S;this.vx*=-.5}
