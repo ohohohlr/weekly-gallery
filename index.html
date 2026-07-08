@@ -1,19 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>微博社媒图片汇总 · 目录</title><style>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>微博社媒图片汇总 · 目录</title>
+<style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d0e14;color:#dde0e8;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
-.container{max-width:560px;width:100%}
-h1{font-size:22px;font-weight:800;color:#e8c56d;text-align:center;letter-spacing:2px;margin-bottom:6px}
-.subtitle{text-align:center;color:#4a5070;font-size:13px;margin-bottom:32px}
-.week-list{display:flex;flex-direction:column;gap:8px}
-.week-link{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#131622;border:1px solid #1e2340;border-radius:10px;text-decoration:none;color:#dde0e8;transition:all .15s}
-.week-link:hover{border-color:#e8c56d;background:#171b2a;transform:translateX(4px)}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:#0d0e14;
+  color:#dde0e8;
+  line-height:1.6;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:60px 20px 80px
+}
+.container{max-width:580px;width:100%}
+
+/* Header */
+.brand{text-align:center;margin-bottom:40px}
+.brand h1{
+  font-size:26px;
+  font-weight:800;
+  color:#e8c56d;
+  letter-spacing:4px
+}
+.brand .tag{
+  display:inline-block;
+  margin-top:10px;
+  padding:4px 16px;
+  background:rgba(232,197,109,.08);
+  border:1px solid rgba(232,197,109,.18);
+  border-radius:14px;
+  font-size:11px;
+  color:#b8a868;
+  letter-spacing:1.5px
+}
+.brand p{margin-top:6px;color:#4a5070;font-size:13px}
+
+/* Week Cards */
+.week-list{display:flex;flex-direction:column;gap:10px}
+.week-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 20px;
+  background:linear-gradient(135deg,#131622 0%,#141728 100%);
+  border:1px solid #1e2340;
+  border-radius:12px;
+  text-decoration:none;
+  color:#dde0e8;
+  transition:all .2s ease;
+  cursor:pointer
+}
+.week-link:hover{
+  border-color:#e8c56d;
+  background:linear-gradient(135deg,#1a1d30 0%,#1c2035 100%);
+  transform:translateX(6px);
+  box-shadow:0 4px 24px rgba(232,197,109,.08)
+}
+.link-left{display:flex;align-items:center;gap:10px}
 .week-link .date{font-weight:600;font-size:15px}
-.week-link .arrow{color:#4a5070;font-size:14px}
-.week-link:hover .arrow{color:#e8c56d}
-</style></head>
-<body><div class="container"><h1>SOCIAL IMAGE</h1><p class="subtitle">微博社媒图片归档 · 选择周期查看</p><div class="week-list">
-    <a class="week-link" href="2026-07-05/"><span class="date">2026-07-05</span><span class="arrow">→</span></a>
-  </div></div></body></html>
+.badge-new{
+  font-size:10px;
+  padding:2px 8px;
+  border-radius:8px;
+  background:rgba(232,197,109,.15);
+  color:#e8c56d;
+  font-weight:600;
+  letter-spacing:.5px
+}
+.week-link .arrow{
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.04);
+  font-size:14px;
+  color:#4a5070;
+  transition:all .2s
+}
+.week-link:hover .arrow{
+  background:rgba(232,197,109,.15);
+  color:#e8c56d
+}
+
+/* Footer */
+.footer{text-align:center;margin-top:48px;color:#2a2e40;font-size:11px;letter-spacing:2px}
+
+/* Responsive */
+@media(max-width:480px){
+  body{padding:40px 16px 60px}
+  .brand h1{font-size:22px}
+  .week-link{padding:14px 16px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">
+    <h1>SOCIAL IMAGE</h1>
+    <div class="tag">微 博 社 媒 图 库</div>
+    <p>各游戏官方微博每周图片汇总</p>
+  </div>
+  <div class="week-list">
+
+    <a class="week-link" href="2026-07-05/">
+      <div class="link-left">
+        <span class="date">2026-07-05</span>
+        <span class="badge-new">最新</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+  <div class="footer">WEEKLY ARCHIVE</div>
+</div>
+</body>
+</html>
