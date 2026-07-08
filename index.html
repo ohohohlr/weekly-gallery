@@ -91,7 +91,7 @@ class Ic{
     for(let j=0;j<Ic.list.length;j++){const b=Ic.list[j];if(b===this||b.s==="I")continue;const dx=b.x-this.x,dy=b.y-this.y,d=Math.sqrt(dx*dx+dy*dy),m=S*2;if(d>=m||d===0)continue;const p=(m-d)/2,nx=dx/d,ny=dy/d;this.x-=nx*p;this.y-=ny*p;b.x+=nx*p;b.y+=ny*p;const dv=(this.vx-b.vx)*nx+(this.vy-b.vy)*ny;if(dv>0)continue;const im=dv/2*1.6;this.vx-=im*nx;this.vy-=im*ny;b.vx+=im*nx;b.vy+=im*ny}
     break;
    case"R":
-    this.t--;this.rot+=this.vx*.01;this.vx*=.96;
+    this.t--;this.rot+=this.vx*.015;this.rot+=Math.sin(Date.now()*.0015+this.i)*.004;this.vx*=.97;
     this.y=H-20-S+Math.sin(Date.now()*.0015+this.i*2)*1.5;
     if(this.t<=0){this.s="Fd";this.t=60}
     break;
