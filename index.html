@@ -3,44 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>微博社媒图片汇总 · 目录</title>
+<title>微博社媒图片汇总</title>
+<script>
+// 自动跳转到最新一周
+var dirs = [];
+</script>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: #0d0e14;
-  color: #dde0e8;
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-}
-.container { max-width: 560px; width: 100%; }
-h1 { font-size: 22px; font-weight: 800; color: #e8c56d; text-align: center; letter-spacing: 2px; margin-bottom: 6px; }
-.subtitle { text-align: center; color: #4a5070; font-size: 13px; margin-bottom: 32px; }
-.week-list { display: flex; flex-direction: column; gap: 8px; }
-.week-link {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 18px; background: #131622;
-  border: 1px solid #1e2340; border-radius: 10px;
-  text-decoration: none; color: #dde0e8; transition: all .15s;
-}
-.week-link:hover { border-color: #e8c56d; background: #171b2a; transform: translateX(4px); }
-.week-link .date { font-weight: 600; font-size: 15px; }
-.week-link .arrow { color: #4a5070; font-size: 14px; }
-.week-link:hover .arrow { color: #e8c56d; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0d0e14;color:#dde0e8;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+.container{max-width:560px;width:100%;text-align:center}
+h1{font-size:20px;font-weight:800;color:#e8c56d;letter-spacing:2px;margin-bottom:6px}
+p{color:#4a5070;font-size:13px;margin-bottom:24px}
+a{color:#e8c56d;text-decoration:none;font-size:14px}
+a:hover{color:#f0d88a}
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>SOCIAL IMAGE</h1>
-  <p class="subtitle">微博社媒图片归档 · 选择周期查看</p>
-  <div class="week-list">
-    <a class="week-link" href="2026-07-05/"><span class="date">2026-07-05 · 当期</span><span class="arrow">→</span></a>
-  </div>
+<script>
+// 查找子目录下的 index.html
+var bases = ['2026-07-05'];
+// 重定向到最新一期
+window.location.href = bases[0] + '/';
+</script>
+<h1>SOCIAL IMAGE</h1>
+<p>正在跳转... <a href="2026-07-05/">点击这里</a></p>
+<p style="margin-top:8px"><a href="archive/">查看所有周目录 →</a></p>
 </div>
 </body>
 </html>
