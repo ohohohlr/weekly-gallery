@@ -37,7 +37,11 @@ body{position:relative;overflow-x:hidden;
   border-radius:50%;background:rgba(255,255,255,.04);
   font-size:14px;color:#4a5070;transition:all .2s}
 .week-link:hover .arrow{background:rgba(232,197,109,.15);color:#e8c56d}
-.footer{text-align:center;margin-top:48px;color:#2a2e40;font-size:11px;letter-spacing:2px}
+.footer{margin-top:60px;padding-top:24px;text-align:center;border-top:1px solid rgba(232,197,109,.08)}
+.footer .icons{display:flex;justify-content:center;gap:12px;margin-bottom:12px}
+.footer .icons img{width:20px;height:20px;border-radius:5px;opacity:.35}
+.footer .label{font-size:10px;color:#2a2e40;letter-spacing:3px}
+.footer .copy{font-size:9px;color:#1a1e30;margin-top:4px;letter-spacing:1px}
 @media(max-width:480px){body{padding:0 16px}
   .brand{padding-top:20vh}
   .brand h1{font-size:48px;letter-spacing:4px}.week-link{padding:14px 16px}}
@@ -60,7 +64,17 @@ body{position:relative;overflow-x:hidden;
       <span class="arrow">→</span>
     </a>
   </div>
-  <div class="footer">WEEKLY ARCHIVE</div>
+  <div class="footer">
+    <div class="icons">
+      <img src="icons/arknights.png" alt="" loading="lazy">
+      <img src="icons/endfield.png" alt="" loading="lazy">
+      <img src="icons/zzz.png" alt="" loading="lazy">
+      <img src="icons/nte.png" alt="" loading="lazy">
+      <img src="icons/wuwave.png" alt="" loading="lazy">
+    </div>
+    <div class="label">WEEKLY ARCHIVE</div>
+    <div class="copy">各游戏官方微博社媒图片每周汇总</div>
+  </div>
 </div>
 <script>
 // Icon data (base64)
