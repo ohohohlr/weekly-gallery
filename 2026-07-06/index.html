@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社媒图片汇总 · 07-06 — 07-12</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0d0e14;
+  color: #dde0e8;
+  line-height: 1.5;
+  display: flex;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 260px;
+  background: #10121c;
+  border-right: 1px solid #1e2238;
+  overflow-y: auto;
+  padding: 0 0 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s ease;
+}
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-thumb { background: #2a2e48; border-radius: 2px; }
+
+.sidebar-logo {
+  padding: 16px 14px 14px;
+  border-bottom: 1px solid #1a1e30;
+  margin-bottom: 4px;
+  position: sticky;
+  top: 0;
+  background: #10121c;
+  z-index: 1;
+}
+.sidebar-logo .s-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #e8c56d;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+.sidebar-logo .s-sub {
+  font-size: 11px;
+  color: #4a5070;
+  margin-top: 3px;
+}
+
+/* accent color — override via CSS custom properties if desired */
+:root {
+  --accent: #c85a5a;
+  --accent-glow: rgba(200,90,90,0.15);
+  --accent-border: rgba(200,90,90,0.3);
+  --gold: #e8c56d;
+  --gold-dim: #d8c07a;
+}
+
+/* ── GAME COLORS (generated per project) ── */
+:root {
+  --clr-endfield: #5b8dd9;
+  --clr-arknights: #e8c56d;
+  --clr-zzz: #c85a5a;
+  --clr-nte: #7b6bc4;
+  --clr-wuwave: #4fab9e;
+}
+
+.sb-game[data-game="endfield"] .sb-game-toggle { color: var(--clr-endfield); border-left-color: var(--clr-endfield); }
+.sb-game[data-game="endfield"] .game-dot { background: var(--clr-endfield); }
+.sb-game[data-game="endfield"] .sb-post.active { color: var(--clr-endfield); background: rgba(91,141,217,.08); border-left-color: var(--clr-endfield); }
+.game-section[data-game="endfield"] .game-header { color: var(--clr-endfield); border-bottom-color: rgba(91,141,217,.3); }
+.game-section[data-game="endfield"] .game-icon { background: var(--clr-endfield); }
+.sb-game[data-game="arknights"] .sb-game-toggle { color: var(--clr-arknights); border-left-color: var(--clr-arknights); }
+.sb-game[data-game="arknights"] .game-dot { background: var(--clr-arknights); }
+.sb-game[data-game="arknights"] .sb-post.active { color: var(--clr-arknights); background: rgba(232,197,109,.08); border-left-color: var(--clr-arknights); }
+.game-section[data-game="arknights"] .game-header { color: var(--clr-arknights); border-bottom-color: rgba(232,197,109,.3); }
+.game-section[data-game="arknights"] .game-icon { background: var(--clr-arknights); }
+.sb-game[data-game="zzz"] .sb-game-toggle { color: var(--clr-zzz); border-left-color: var(--clr-zzz); }
+.sb-game[data-game="zzz"] .game-dot { background: var(--clr-zzz); }
+.sb-game[data-game="zzz"] .sb-post.active { color: var(--clr-zzz); background: rgba(200,90,90,.08); border-left-color: var(--clr-zzz); }
+.game-section[data-game="zzz"] .game-header { color: var(--clr-zzz); border-bottom-color: rgba(200,90,90,.3); }
+.game-section[data-game="zzz"] .game-icon { background: var(--clr-zzz); }
+.sb-game[data-game="nte"] .sb-game-toggle { color: var(--clr-nte); border-left-color: var(--clr-nte); }
+.sb-game[data-game="nte"] .game-dot { background: var(--clr-nte); }
+.sb-game[data-game="nte"] .sb-post.active { color: var(--clr-nte); background: rgba(123,107,196,.08); border-left-color: var(--clr-nte); }
+.game-section[data-game="nte"] .game-header { color: var(--clr-nte); border-bottom-color: rgba(123,107,196,.3); }
+.game-section[data-game="nte"] .game-icon { background: var(--clr-nte); }
+.sb-game[data-game="wuwave"] .sb-game-toggle { color: var(--clr-wuwave); border-left-color: var(--clr-wuwave); }
+.sb-game[data-game="wuwave"] .game-dot { background: var(--clr-wuwave); }
+.sb-game[data-game="wuwave"] .sb-post.active { color: var(--clr-wuwave); background: rgba(79,171,158,.08); border-left-color: var(--clr-wuwave); }
+.game-section[data-game="wuwave"] .game-header { color: var(--clr-wuwave); border-bottom-color: rgba(79,171,158,.3); }
+.game-section[data-game="wuwave"] .game-icon { background: var(--clr-wuwave); }
+
+/* ── GAME GROUP (sidebar — three-level mode) ── */
+ .sidebar-back {
+   margin: 8px 14px 4px;
+ }
+ .sidebar-back a {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   font-size: 11px;
+   color: #4a5070;
+   text-decoration: none;
+   padding: 4px 0;
+   transition: color .15s;
+ }
+ .sidebar-back a:hover {
+   color: #e8c56d;
+ }
+ 
+ .sb-game { margin-bottom: 2px; }
+.sb-game-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all .15s;
+  user-select: none;
+  width: 100%;
+  background: none;
+  border-top: none; border-right: none; border-bottom: none;
+  text-align: left;
+}
+.sb-game-toggle:hover { background: rgba(255,255,255,.04); }
+.sb-game-toggle .arrow {
+  font-size: 10px;
+  transition: transform .2s;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  color: #4a5070;
+}
+.sb-game-toggle.collapsed .arrow { transform: rotate(-90deg); }
+.sb-game-toggle .game-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sb-game-toggle .game-label { flex: 1; }
+.sb-game-toggle .game-count {
+  font-size: 10px;
+  color: #3a3f5a;
+  font-weight: 400;
+}
+
+.sb-game-children {
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height .3s ease;
+}
+.sb-game-children.collapsed { max-height: 0; }
+
+/* week section header (two-level mode) */
+.sb-week {
+  padding: 10px 14px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* date group — collapsible */
+.sb-date { margin-bottom: 2px; }
+.sb-date-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px 5px 28px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a8099;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  user-select: none;
+  width: 100%;
+  background: none;
+  border-top: none; border-right: none; border-bottom: none;
+  text-align: left;
+}
+.sb-date-toggle:hover {
+  color: #c8b878;
+  background: rgba(200,184,120,.05);
+}
+.sb-date-toggle .arrow {
+  font-size: 10px;
+  transition: transform .2s;
+  flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  color: #4a5070;
+}
+.sb-date-toggle.collapsed .arrow { transform: rotate(-90deg); }
+.sb-date-toggle .date-label { flex: 1; }
+.sb-date-toggle .date-count {
+  font-size: 10px;
+  color: #3a3f5a;
+  font-weight: 400;
+}
+
+/* post title items under date */
+.sb-posts {
+  overflow: hidden;
+  max-height: 500px;
+  transition: max-height .25s ease;
+}
+.sb-posts.collapsed { max-height: 0; }
+
+.sb-post {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px 4px 48px;
+  font-size: 11px;
+  color: #5a6080;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+.sb-post:hover {
+  color: #b8a868;
+  background: rgba(200,184,120,.05);
+}
+.sb-post .p-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #2e3248;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.sb-post:hover .p-dot { background: currentColor; }
+
+/* sidebar toggle button (mobile) */
+#sb-toggle {
+  display: none;
+  position: fixed;
+  top: 14px; left: 14px;
+  z-index: 300;
+  background: #1a1e30;
+  border: 1px solid #2e3560;
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+  color: #9098b8;
+  font-size: 16px;
+}
+
+/* ── MAIN CONTENT ── */
+#main {
+  margin-left: 260px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #151828 0%, #1a1f3a 60%, #0e1520 100%);
+  padding: 36px 24px 28px;
+  text-align: center;
+  border-bottom: 2px solid var(--accent);
+}
+header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+header .subtitle { color: #7a8099; font-size: 13px; }
+header .stats {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #4a5070;
+}
+header .stats span {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+}
+
+/* ── CONTAINER ── */
+.container { max-width: 920px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── GAME SECTION (three-level mode) ── */
+.game-section { margin-bottom: 40px; }
+.game-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 10px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid;
+}
+.game-header .game-icon {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.game-header .game-name {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.game-header .game-post-count {
+  font-size: 11px;
+  color: #4a5070;
+  margin-left: auto;
+}
+
+/* ── WEEK SEPARATOR (two-level mode) ── */
+.week-sep {
+  margin: 32px 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.week-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--accent-border);
+}
+
+/* ── DATE GROUP ── */
+.date-group { margin-bottom: 8px; }
+.date-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9098b8;
+  padding: 8px 0 6px;
+  border-bottom: 1px solid #1e2238;
+  margin-bottom: 12px;
+  scroll-margin-top: 20px;
+}
+
+/* ── POST CARD ── */
+.post-card {
+  background: #13162280;
+  border: 1px solid #1e2340;
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  margin-bottom: 14px;
+  scroll-margin-top: 20px;
+  transition: border-color .2s;
+}
+.post-card:hover { border-color: #2e3560; }
+.post-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.post-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gold-dim);
+  flex: 1;
+}
+.post-badge {
+  font-size: 11px;
+  color: #5a6080;
+  white-space: nowrap;
+  background: #1a1e30;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+.post-meta {
+  font-size: 12px;
+  color: #4a5070;
+  margin-bottom: 12px;
+}
+.post-meta a { color: #4a5070; text-decoration: none; }
+.post-meta a:hover { color: var(--accent); }
+
+/* ── IMAGE GRID ── */
+.img-grid {
+  display: grid;
+  gap: 8px;
+}
+.img-grid.cols-1 { grid-template-columns: 1fr; }
+.img-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.img-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+.img-wrap {
+  position: relative;
+  cursor: zoom-in;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0d0e14;
+  line-height: 0;
+}
+.img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity .2s;
+}
+.img-wrap:hover img { opacity: .88; }
+.gif-tag {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(200,90,90,.9);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: .5px;
+}
+
+/* ── LIGHTBOX ── */
+#lb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,6,12,.96);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+#lb.on { display: flex; }
+
+#lb-canvas {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#lb-canvas.dragging { cursor: grabbing; }
+
+#lb-img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 60px rgba(0,0,0,.8);
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  transition: none;
+}
+
+/* zoom controls */
+#lb-controls {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10,12,20,.85);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  padding: 6px 14px;
+  z-index: 10000;
+  backdrop-filter: blur(8px);
+}
+#lb-controls button {
+  background: none;
+  border: none;
+  color: #bbc0d4;
+  cursor: pointer;
+  font-size: 18px;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  transition: background .15s, color .15s;
+}
+#lb-controls button:hover { background: rgba(255,255,255,.12); color: #fff; }
+#lb-zoom-label {
+  font-size: 12px;
+  color: #7a8099;
+  width: 44px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+#lb-close {
+  position: fixed;
+  top: 18px; right: 22px;
+  z-index: 10000;
+  background: rgba(10,12,20,.75);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: #9098b8;
+  font-size: 20px;
+  transition: background .15s, color .15s;
+}
+#lb-close:hover { background: rgba(200,90,90,.5); color: #fff; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  #sb-toggle { display: flex; align-items: center; justify-content: center; }
+  .img-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  header h1 { font-size: 18px; }
+  header { padding-top: 50px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile toggle -->
+<button id="sb-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" title="目录">☰</button>
+
+<!-- ── SIDEBAR ── -->
+ <nav id="sidebar">
+   <div class="sidebar-logo">
+     <div class="s-title">SOCIAL IMAGE</div>
+     <div class="s-sub">微博社媒图片归档</div>
+  <div class="sidebar-back"><a href="/weekly-gallery/">← 返回目录</a></div>
+   </div>
+ 
+   <div class="sb-game" data-game="endfield">
+  <button class="sb-game-toggle" onclick="toggleGame(this)">
+    <span class="arrow">▼</span>
+    <span class="game-dot"></span>
+    <span class="game-label">明日方舟：终末地</span>
+    <span class="game-count">10</span>
+  </button>
+  <div class="sb-game-children">
+    <div class="sb-date" data-date="date-0712-endfield">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-12 周日</span>
+        <span class="date-count">3</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0712-endfield-1" data-target="post-0712-endfield-1">
+          <span class="p-dot"></span>塔晶
+        </a>
+        <a class="sb-post" href="#post-0712-endfield-2" data-target="post-0712-endfield-2">
+          <span class="p-dot"></span>《云
+        </a>
+        <a class="sb-post" href="#post-0712-endfield-3" data-target="post-0712-endfield-3">
+          <span class="p-dot"></span>//
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0711-endfield">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-11 周六</span>
+        <span class="date-count">4</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0711-endfield-1" data-target="post-0711-endfield-1">
+          <span class="p-dot"></span>相伴庆典
+        </a>
+        <a class="sb-post" href="#post-0711-endfield-2" data-target="post-0711-endfield-2">
+          <span class="p-dot"></span>协议重连
+        </a>
+        <a class="sb-post" href="#post-0711-endfield-3" data-target="post-0711-endfield-3">
+          <span class="p-dot"></span>今日心情忧郁中！
+        </a>
+        <a class="sb-post" href="#post-0711-endfield-4" data-target="post-0711-endfield-4">
+          <span class="p-dot"></span>//
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0710-endfield">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-10 周五</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0710-endfield-1" data-target="post-0710-endfield-1">
+          <span class="p-dot"></span>向渊行
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0709-endfield">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-09 周四</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0709-endfield-1" data-target="post-0709-endfield-1">
+          <span class="p-dot"></span>协议通行证
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0708-endfield">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-08 周三</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0708-endfield-1" data-target="post-0708-endfield-1">
+          <span class="p-dot"></span>理智补给
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sb-game" data-game="arknights">
+  <button class="sb-game-toggle" onclick="toggleGame(this)">
+    <span class="arrow">▼</span>
+    <span class="game-dot"></span>
+    <span class="game-label">明日方舟</span>
+    <span class="game-count">7</span>
+  </button>
+  <div class="sb-game-children">
+    <div class="sb-date" data-date="date-0712-arknights">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-12 周日</span>
+        <span class="date-count">2</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0712-arknights-1" data-target="post-0712-arknights-1">
+          <span class="p-dot"></span>沉沦者的黑流树海
+        </a>
+        <a class="sb-post" href="#post-0712-arknights-2" data-target="post-0712-arknights-2">
+          <span class="p-dot"></span>7 月 12 日 丛林症结OST 正式
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0711-arknights">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-11 周六</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0711-arknights-1" data-target="post-0711-arknights-1">
+          <span class="p-dot"></span>黑流之下，树
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0710-arknights">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-10 周五</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0710-arknights-1" data-target="post-0710-arknights-1">
+          <span class="p-dot"></span>//【明日方舟×小马宝莉】，新装限时上
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0709-arknights">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-09 周四</span>
+        <span class="date-count">2</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0709-arknights-1" data-target="post-0709-arknights-1">
+          <span class="p-dot"></span>【新增家具】 //源石应用实验室 根据谬
+        </a>
+        <a class="sb-post" href="#post-0709-arknights-2" data-target="post-0709-arknights-2">
+          <span class="p-dot"></span>◤模组升级效果前瞻◢ ​​​​
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0708-arknights">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-08 周三</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0708-arknights-1" data-target="post-0708-arknights-1">
+          <span class="p-dot"></span>【中坚寻访】 起止时间
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sb-game" data-game="zzz">
+  <button class="sb-game-toggle" onclick="toggleGame(this)">
+    <span class="arrow">▼</span>
+    <span class="game-dot"></span>
+    <span class="game-label">绝区零</span>
+    <span class="game-count">8</span>
+  </button>
+  <div class="sb-game-children">
+    <div class="sb-date" data-date="date-0710-zzz">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-10 周五</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0710-zzz-1" data-target="post-0710-zzz-1">
+          <span class="p-dot"></span>天使
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0709-zzz">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-09 周四</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0709-zzz-1" data-target="post-0709-zzz-1">
+          <span class="p-dot"></span>骑行委托计划
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0708-zzz">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-08 周三</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0708-zzz-1" data-target="post-0708-zzz-1">
+          <span class="p-dot"></span>『嗯呢
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0706-zzz">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-06 周一</span>
+        <span class="date-count">5</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0706-zzz-1" data-target="post-0706-zzz-1">
+          <span class="p-dot"></span>《绝区零》诺姆EP《
+        </a>
+        <a class="sb-post" href="#post-0706-zzz-2" data-target="post-0706-zzz-2">
+          <span class="p-dot"></span>艺术就是邦布！
+        </a>
+        <a class="sb-post" href="#post-0706-zzz-3" data-target="post-0706-zzz-3">
+          <span class="p-dot"></span>『嗯呢
+        </a>
+        <a class="sb-post" href="#post-0706-zzz-4" data-target="post-0706-zzz-4">
+          <span class="p-dot"></span>商城
+        </a>
+        <a class="sb-post" href="#post-0706-zzz-5" data-target="post-0706-zzz-5">
+          <span class="p-dot"></span>3.0版本限时频段（下期）  亲爱
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sb-game" data-game="nte">
+  <button class="sb-game-toggle" onclick="toggleGame(this)">
+    <span class="arrow">▼</span>
+    <span class="game-dot"></span>
+    <span class="game-label">异环</span>
+    <span class="game-count">10</span>
+  </button>
+  <div class="sb-game-children">
+    <div class="sb-date" data-date="date-0711-nte">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-11 周六</span>
+        <span class="date-count">1</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0711-nte-1" data-target="post-0711-nte-1">
+          <span class="p-dot"></span>九百九十九夜
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0710-nte">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-10 周五</span>
+        <span class="date-count">2</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0710-nte-1" data-target="post-0710-nte-1">
+          <span class="p-dot"></span>精彩再现丨BW2026现场回
+        </a>
+        <a class="sb-post" href="#post-0710-nte-2" data-target="post-0710-nte-2">
+          <span class="p-dot"></span>哔啵哔啵——呼叫鉴定师，这里是E.T.D六队的灵可，正在执行『找你出去玩
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0709-nte">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-09 周四</span>
+        <span class="date-count">3</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0709-nte-1" data-target="post-0709-nte-1">
+          <span class="p-dot"></span>燎原环线
+        </a>
+        <a class="sb-post" href="#post-0709-nte-2" data-target="post-0709-nte-2">
+          <span class="p-dot"></span>《异环》×北通 联
+        </a>
+        <a class="sb-post" href="#post-0709-nte-3" data-target="post-0709-nte-3">
+          <span class="p-dot"></span>你可以把我当成一个秘密，一袭幻影，一场独属于你的噩梦……
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0708-nte">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-08 周三</span>
+        <span class="date-count">2</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0708-nte-1" data-target="post-0708-nte-1">
+          <span class="p-dot"></span>可可！让我来保护你！
+        </a>
+        <a class="sb-post" href="#post-0708-nte-2" data-target="post-0708-nte-2">
+          <span class="p-dot"></span>真红角色EP《Whatever
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0706-nte">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-06 周一</span>
+        <span class="date-count">2</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0706-nte-1" data-target="post-0706-nte-1">
+          <span class="p-dot"></span>九百九十九夜
+        </a>
+        <a class="sb-post" href="#post-0706-nte-2" data-target="post-0706-nte-2">
+          <span class="p-dot"></span>最近运气不错，每次出门都能遇到想收藏的新东西。
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sb-game" data-game="wuwave">
+  <button class="sb-game-toggle" onclick="toggleGame(this)">
+    <span class="arrow">▼</span>
+    <span class="game-dot"></span>
+    <span class="game-label">鸣潮</span>
+    <span class="game-count">32</span>
+  </button>
+  <div class="sb-game-children">
+    <div class="sb-date" data-date="date-0712-wuwave">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-12 周日</span>
+        <span class="date-count">3</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0712-wuwave-1" data-target="post-0712-wuwave-1">
+          <span class="p-dot"></span>《鸣潮》时光邮局
+        </a>
+        <a class="sb-post" href="#post-0712-wuwave-2" data-target="post-0712-wuwave-2">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0712-wuwave-3" data-target="post-0712-wuwave-3">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0711-wuwave">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-11 周六</span>
+        <span class="date-count">4</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0711-wuwave-1" data-target="post-0711-wuwave-1">
+          <span class="p-dot"></span>《鸣潮》BilibiliWor
+        </a>
+        <a class="sb-post" href="#post-0711-wuwave-2" data-target="post-0711-wuwave-2">
+          <span class="p-dot"></span>先纵后横
+        </a>
+        <a class="sb-post" href="#post-0711-wuwave-3" data-target="post-0711-wuwave-3">
+          <span class="p-dot"></span>《鸣潮》梦州·玄方篇OST Vo
+        </a>
+        <a class="sb-post" href="#post-0711-wuwave-4" data-target="post-0711-wuwave-4">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0710-wuwave">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-10 周五</span>
+        <span class="date-count">7</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0710-wuwave-1" data-target="post-0710-wuwave-1">
+          <span class="p-dot"></span>遗音扶剑 荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0710-wuwave-2" data-target="post-0710-wuwave-2">
+          <span class="p-dot"></span>“漂泊者
+        </a>
+        <a class="sb-post" href="#post-0710-wuwave-3" data-target="post-0710-wuwave-3">
+          <span class="p-dot"></span>逃离鸭科夫
+        </a>
+        <a class="sb-post" href="#post-0710-wuwave-4" data-target="post-0710-wuwave-4">
+          <span class="p-dot"></span>“深空与黑花”特别勋章
+        </a>
+        <a class="sb-post" href="#post-0710-wuwave-5" data-target="post-0710-wuwave-5">
+          <span class="p-dot"></span>《鸣潮》3.5版
+        </a>
+        <a class="sb-post" href="#post-0710-wuwave-6" data-target="post-0710-wuwave-6">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0710-wuwave-7" data-target="post-0710-wuwave-7">
+          <span class="p-dot"></span>再续 · 光影瞬息
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0709-wuwave">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-09 周四</span>
+        <span class="date-count">10</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0709-wuwave-1" data-target="post-0709-wuwave-1">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-2" data-target="post-0709-wuwave-2">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-3" data-target="post-0709-wuwave-3">
+          <span class="p-dot"></span>档案回顾
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-4" data-target="post-0709-wuwave-4">
+          <span class="p-dot"></span>全息战略·达妮娅
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-5" data-target="post-0709-wuwave-5">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-6" data-target="post-0709-wuwave-6">
+          <span class="p-dot"></span>苍鳞千嶂
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-7" data-target="post-0709-wuwave-7">
+          <span class="p-dot"></span>忌炎
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-8" data-target="post-0709-wuwave-8">
+          <span class="p-dot"></span>牵翎祈万声
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-9" data-target="post-0709-wuwave-9">
+          <span class="p-dot"></span>天之苍苍
+        </a>
+        <a class="sb-post" href="#post-0709-wuwave-10" data-target="post-0709-wuwave-10">
+          <span class="p-dot"></span>秧秧・玄翎
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0708-wuwave">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-08 周三</span>
+        <span class="date-count">4</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0708-wuwave-1" data-target="post-0708-wuwave-1">
+          <span class="p-dot"></span>★鸣潮×支付宝 鸣潮演唱会特别合作
+        </a>
+        <a class="sb-post" href="#post-0708-wuwave-2" data-target="post-0708-wuwave-2">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0708-wuwave-3" data-target="post-0708-wuwave-3">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0708-wuwave-4" data-target="post-0708-wuwave-4">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+      </div>
+    </div>
+    <div class="sb-date" data-date="date-0706-wuwave">
+      <button class="sb-date-toggle" onclick="toggleDate(this)">
+        <span class="arrow">▼</span>
+        <span class="date-label">07-06 周一</span>
+        <span class="date-count">4</span>
+      </button>
+      <div class="sb-posts">
+        <a class="sb-post" href="#post-0706-wuwave-1" data-target="post-0706-wuwave-1">
+          <span class="p-dot"></span>遗音扶剑，荡梦而歌
+        </a>
+        <a class="sb-post" href="#post-0706-wuwave-2" data-target="post-0706-wuwave-2">
+          <span class="p-dot"></span>《鸣潮》时光邮局活动将
+        </a>
+        <a class="sb-post" href="#post-0706-wuwave-3" data-target="post-0706-wuwave-3">
+          <span class="p-dot"></span>梦州·玄方地界
+        </a>
+        <a class="sb-post" href="#post-0706-wuwave-4" data-target="post-0706-wuwave-4">
+          <span class="p-dot"></span>档案公开
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</nav>
+
+<!-- ── MAIN ── -->
+<div id="main">
+<header>
+  <h1>四款游戏 · 微博社媒图片汇总</h1>
+  <p class="subtitle">明日方舟：终末地 / 明日方舟 / 绝区零 / 异环 — 2026.07-06 — 07-12</p>
+  <p class="stats"><span style="color:var(--clr-endfield);border:1px solid rgba(91,141,217,.3);background:rgba(91,141,217,.1)">明日方舟：终末地 10帖</span><span style="color:var(--clr-arknights);border:1px solid rgba(232,197,109,.3);background:rgba(232,197,109,.1)">明日方舟 7帖</span><span style="color:var(--clr-zzz);border:1px solid rgba(200,90,90,.3);background:rgba(200,90,90,.1)">绝区零 8帖</span><span style="color:var(--clr-nte);border:1px solid rgba(123,107,196,.3);background:rgba(123,107,196,.1)">异环 10帖</span><span style="color:var(--clr-wuwave);border:1px solid rgba(79,171,158,.3);background:rgba(79,171,158,.1)">鸣潮 32帖</span></p>
+</header>
+
+<div class="container">
+<div class="game-section" data-game="endfield">
+  <div class="game-header">
+    <span class="game-icon"></span>
+    <span class="game-name">明日方舟：终末地</span>
+    <span class="game-post-count">10 条帖子</span>
+  </div>
+  <div class="date-group">
+    <div id="date-0712-endfield" class="date-header">07-12 周日</div>
+    <div id="post-0712-endfield-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">塔晶</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">15:00 · <a href="https://weibo.com/7745672941/5319871219893833" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-12_5319871219893833_008sc3mJgy1if0dr0zf4zj30rs43v4qp.jpg')">
+        <img src="images/endfield_2026-07-12_5319871219893833_008sc3mJgy1if0dr0zf4zj30rs43v4qp.jpg" alt="塔晶" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0712-endfield-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《云</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">14:00 · <a href="https://weibo.com/7745672941/5319856124856603" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-12_5319856124856603_008sc3mJgy1if0dj6mnlfj30rs6sge82.jpg')">
+        <img src="images/endfield_2026-07-12_5319856124856603_008sc3mJgy1if0dj6mnlfj30rs6sge82.jpg" alt="《云" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0712-endfield-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">//</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:00 · <a href="https://weibo.com/7745672941/5319810822703098" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-12_5319810822703098_008sc3mJgy1iez9gofhltj30rs6it1kz.jpg')">
+        <img src="images/endfield_2026-07-12_5319810822703098_008sc3mJgy1iez9gofhltj30rs6it1kz.jpg" alt="//" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0711-endfield" class="date-header">07-11 周六</div>
+    <div id="post-0711-endfield-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">相伴庆典</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7745672941/5319554130515174" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-11_5319554130515174_008sc3mJgy1iezah903xtj30rs8ls7wp.jpg')">
+        <img src="images/endfield_2026-07-11_5319554130515174_008sc3mJgy1iezah903xtj30rs8ls7wp.jpg" alt="相伴庆典" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-11_5319554130515174_008sc3mJgy1iezahdqlyuj30rs7ewqva.jpg')">
+        <img src="images/endfield_2026-07-11_5319554130515174_008sc3mJgy1iezahdqlyuj30rs7ewqva.jpg" alt="相伴庆典" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0711-endfield-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">协议重连</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">13:00 · <a href="https://weibo.com/7745672941/5319478633043090" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-11_5319478633043090_008sc3mJgy1iezag7ldyjj318g0p0e81.jpg')">
+        <img src="images/endfield_2026-07-11_5319478633043090_008sc3mJgy1iezag7ldyjj318g0p0e81.jpg" alt="协议重连" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0711-endfield-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">今日心情忧郁中！</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7745672941/5319463534331443" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-11_5319463534331443_008sc3mJgy1iez33sg1y9j30xc1hcwv7.jpg')">
+        <img src="images/endfield_2026-07-11_5319463534331443_008sc3mJgy1iez33sg1y9j30xc1hcwv7.jpg" alt="今日心情忧郁中！" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-11_5319463534331443_008sc3mJgy1iez33seglhj30xc1b5nc5.jpg')">
+        <img src="images/endfield_2026-07-11_5319463534331443_008sc3mJgy1iez33seglhj30xc1b5nc5.jpg" alt="今日心情忧郁中！" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0711-endfield-4" class="post-card">
+      <div class="post-header">
+        <span class="post-title">//</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">11:00 · <a href="https://weibo.com/7745672941/5319448434838801" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-11_5319448434838801_008sc3mJgy1iezaovd76lj30u01hchdu.jpg')">
+        <img src="images/endfield_2026-07-11_5319448434838801_008sc3mJgy1iezaovd76lj30u01hchdu.jpg" alt="//" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-11_5319448434838801_008sc3mJgy1iezaoz1gzkj30u01hcb29.jpg')">
+        <img src="images/endfield_2026-07-11_5319448434838801_008sc3mJgy1iezaoz1gzkj30u01hcb29.jpg" alt="//" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0710-endfield" class="date-header">07-10 周五</div>
+    <div id="post-0710-endfield-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">向渊行</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">21:10 · <a href="https://weibo.com/7745672941/5319239557973165" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-10_5319239557973165_008sc3mJgy1iez58bg9kgj32yo8c0qv6.jpg')">
+        <img src="images/endfield_2026-07-10_5319239557973165_008sc3mJgy1iez58bg9kgj32yo8c0qv6.jpg" alt="向渊行" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-10_5319239557973165_008sc3mJgy1iez58c3gwwj32hwcn21ky.jpg')">
+        <img src="images/endfield_2026-07-10_5319239557973165_008sc3mJgy1iez58c3gwwj32hwcn21ky.jpg" alt="向渊行" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0709-endfield" class="date-header">07-09 周四</div>
+    <div id="post-0709-endfield-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">协议通行证</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:30 · <a href="https://weibo.com/7745672941/5318731212260078" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-09_5318731212260078_008sc3mJgy1iewyg9bmlhj318g0p0tmj.jpg')">
+        <img src="images/endfield_2026-07-09_5318731212260078_008sc3mJgy1iewyg9bmlhj318g0p0tmj.jpg" alt="协议通行证" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0708-endfield" class="date-header">07-08 周三</div>
+    <div id="post-0708-endfield-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">理智补给</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:30 · <a href="https://weibo.com/7745672941/5318368837764771" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/endfield_2026-07-08_5318368837764771_008sc3mJgy1ievo5dtu0lj318g0p0n9b.jpg')">
+        <img src="images/endfield_2026-07-08_5318368837764771_008sc3mJgy1ievo5dtu0lj318g0p0n9b.jpg" alt="理智补给" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="game-section" data-game="arknights">
+  <div class="game-header">
+    <span class="game-icon"></span>
+    <span class="game-name">明日方舟</span>
+    <span class="game-post-count">7 条帖子</span>
+  </div>
+  <div class="date-group">
+    <div id="date-0712-arknights" class="date-header">07-12 周日</div>
+    <div id="post-0712-arknights-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">沉沦者的黑流树海</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">16:00 · <a href="https://weibo.com/6279793937/5319886320175795" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-12_5319886320175795_006QZngZgy1if163urs6vj30rs3k54qp.jpg')">
+        <img src="images/arknights_2026-07-12_5319886320175795_006QZngZgy1if163urs6vj30rs3k54qp.jpg" alt="沉沦者的黑流树海" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-12_5319886320175795_006QZngZgy1if163ygqpej30rs5ozu0x.jpg')">
+        <img src="images/arknights_2026-07-12_5319886320175795_006QZngZgy1if163ygqpej30rs5ozu0x.jpg" alt="沉沦者的黑流树海" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0712-arknights-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">7 月 12 日 丛林症结OST 正式</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">13:00 · <a href="https://weibo.com/6279793937/5319841020908973" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-12_5319841020908973_006QZngZgy1iez3ujls8fj30rs0rs7cg.jpg')">
+        <img src="images/arknights_2026-07-12_5319841020908973_006QZngZgy1iez3ujls8fj30rs0rs7cg.jpg" alt="7 月 12 日 丛林症结OST 正式" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0711-arknights" class="date-header">07-11 周六</div>
+    <div id="post-0711-arknights-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">黑流之下，树</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">16:00 · <a href="https://weibo.com/6279793937/5319523931529118" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-11_5319523931529118_006QZngZgy1if0372w732j324r0nd4qq.jpg')">
+        <img src="images/arknights_2026-07-11_5319523931529118_006QZngZgy1if0372w732j324r0nd4qq.jpg" alt="黑流之下，树" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0710-arknights" class="date-header">07-10 周五</div>
+    <div id="post-0710-arknights-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">//【明日方舟×小马宝莉】，新装限时上</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">16:00 · <a href="https://weibo.com/6279793937/5319161544451300" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-10_5319161544451300_006QZngZgy1ieyy0gmaetj36y03wn4qx.jpg')">
+        <img src="images/arknights_2026-07-10_5319161544451300_006QZngZgy1ieyy0gmaetj36y03wn4qx.jpg" alt="//【明日方舟×小马宝莉】，新装限时上" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0709-arknights" class="date-header">07-09 周四</div>
+    <div id="post-0709-arknights-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">【新增家具】 //源石应用实验室 根据谬</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/6279793937/5318829355047933" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-09_5318829355047933_006QZngZgy1iexvp8fogjj30zk0k045t.jpg')">
+        <img src="images/arknights_2026-07-09_5318829355047933_006QZngZgy1iexvp8fogjj30zk0k045t.jpg" alt="【新增家具】 //源石应用实验室 根据谬" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-09_5318829355047933_006QZngZgy1iexvpb1zg1j30m80sg7a1.jpg')">
+        <img src="images/arknights_2026-07-09_5318829355047933_006QZngZgy1iexvpb1zg1j30m80sg7a1.jpg" alt="【新增家具】 //源石应用实验室 根据谬" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-arknights-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">◤模组升级效果前瞻◢ ​​​​</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">16:00 · <a href="https://weibo.com/6279793937/5318799156052877" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-09_5318799156052877_006QZngZgy1iext18eif4j30zk38qnpe.jpg')">
+        <img src="images/arknights_2026-07-09_5318799156052877_006QZngZgy1iext18eif4j30zk38qnpe.jpg" alt="◤模组升级效果前瞻◢ ​​​​" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0708-arknights" class="date-header">07-08 周三</div>
+    <div id="post-0708-arknights-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">【中坚寻访】 起止时间</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/6279793937/5318466971894224" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/arknights_2026-07-08_5318466971894224_006QZngZgy1iewq5eytu3j319u0woh9r.jpg')">
+        <img src="images/arknights_2026-07-08_5318466971894224_006QZngZgy1iewq5eytu3j319u0woh9r.jpg" alt="【中坚寻访】 起止时间" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="game-section" data-game="zzz">
+  <div class="game-header">
+    <span class="game-icon"></span>
+    <span class="game-name">绝区零</span>
+    <span class="game-post-count">8 条帖子</span>
+  </div>
+  <div class="date-group">
+    <div id="date-0710-zzz" class="date-header">07-10 周五</div>
+    <div id="post-0710-zzz-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">天使</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7632078520/5319191743435505" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-10_5319191743435505_008kvqgEgy1iez0r9jz0xj31hc0u0b2a.jpg')">
+        <img src="images/zzz_2026-07-10_5319191743435505_008kvqgEgy1iez0r9jz0xj31hc0u0b2a.jpg" alt="天使" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0709-zzz" class="date-header">07-09 周四</div>
+    <div id="post-0709-zzz-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">骑行委托计划</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7632078520/5318738758601987" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-09_5318738758601987_008kvqgEgy1iexkglrtorj31hc0u04qq.jpg')">
+        <img src="images/zzz_2026-07-09_5318738758601987_008kvqgEgy1iexkglrtorj31hc0u04qq.jpg" alt="骑行委托计划" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0708-zzz" class="date-header">07-08 周三</div>
+    <div id="post-0708-zzz-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">『嗯呢</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7632078520/5318376370211688" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-08_5318376370211688_008kvqgEgy1iewfddzcq2j30u03iqe82.jpg')">
+        <img src="images/zzz_2026-07-08_5318376370211688_008kvqgEgy1iewfddzcq2j30u03iqe82.jpg" alt="『嗯呢" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0706-zzz" class="date-header">07-06 周一</div>
+    <div id="post-0706-zzz-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《绝区零》诺姆EP《</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">18:31 · <a href="https://weibo.com/7632078520/5317750055508822" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-06_5317750055508822_008kvqgEgy1ieug24nr88j31hc0u0e81.jpg')">
+        <img src="images/zzz_2026-07-06_5317750055508822_008kvqgEgy1ieug24nr88j31hc0u0e81.jpg" alt="《绝区零》诺姆EP《" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-zzz-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">艺术就是邦布！</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">18:15 · <a href="https://weibo.com/7632078520/5317745966057673" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-06_5317745966057673_008kvqgEgy1ieue5f9tj4j31hc0u01kx.jpg')">
+        <img src="images/zzz_2026-07-06_5317745966057673_008kvqgEgy1ieue5f9tj4j31hc0u01kx.jpg" alt="艺术就是邦布！" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-zzz-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">『嗯呢</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7632078520/5317742191973066" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-06_5317742191973066_008kvqgEgy1ieudp40udnj31hc0u0x6p.jpg')">
+        <img src="images/zzz_2026-07-06_5317742191973066_008kvqgEgy1ieudp40udnj31hc0u0x6p.jpg" alt="『嗯呢" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-zzz-4" class="post-card">
+      <div class="post-header">
+        <span class="post-title">商城</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">12:45 · <a href="https://weibo.com/7632078520/5317662919628779" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-06_5317662919628779_008kvqgEgy1ieu3c6guubj31hc0u0qrv.jpg')">
+        <img src="images/zzz_2026-07-06_5317662919628779_008kvqgEgy1ieu3c6guubj31hc0u0qrv.jpg" alt="商城" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-zzz-5" class="post-card">
+      <div class="post-header">
+        <span class="post-title">3.0版本限时频段（下期）  亲爱</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">12:30 · <a href="https://weibo.com/7632078520/5317659143966930" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-06_5317659143966930_008kvqgEgy1ieu3y0j3sfj31hc0u01kx.jpg')">
+        <img src="images/zzz_2026-07-06_5317659143966930_008kvqgEgy1ieu3y0j3sfj31hc0u01kx.jpg" alt="3.0版本限时频段（下期）  亲爱" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/zzz_2026-07-06_5317659143966930_008kvqgEgy1ieugcbq7kbj30u01hch9j.jpg')">
+        <img src="images/zzz_2026-07-06_5317659143966930_008kvqgEgy1ieugcbq7kbj30u01hch9j.jpg" alt="3.0版本限时频段（下期）  亲爱" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="game-section" data-game="nte">
+  <div class="game-header">
+    <span class="game-icon"></span>
+    <span class="game-name">异环</span>
+    <span class="game-post-count">10 条帖子</span>
+  </div>
+  <div class="date-group">
+    <div id="date-0711-nte" class="date-header">07-11 周六</div>
+    <div id="post-0711-nte-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">九百九十九夜</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">20:30 · <a href="https://weibo.com/7929584207/5319591904677222" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-11_5319591904677222_008EDJ5tgy1if0bsklrxzj35eo31kb29.jpg')">
+        <img src="images/nte_2026-07-11_5319591904677222_008EDJ5tgy1if0bsklrxzj35eo31kb29.jpg" alt="九百九十九夜" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-11_5319591904677222_008EDJ5tgy1if0d66qaqdj35eo2z4u0y.jpg')">
+        <img src="images/nte_2026-07-11_5319591904677222_008EDJ5tgy1if0d66qaqdj35eo2z4u0y.jpg" alt="九百九十九夜" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0710-nte" class="date-header">07-10 周五</div>
+    <div id="post-0710-nte-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">精彩再现丨BW2026现场回</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">19:20 · <a href="https://weibo.com/7929584207/5319212119365260" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-10_5319212119365260_008EDJ5tgy1iez46bpxwyj35eo31ku0x.jpg')">
+        <img src="images/nte_2026-07-10_5319212119365260_008EDJ5tgy1iez46bpxwyj35eo31ku0x.jpg" alt="精彩再现丨BW2026现场回" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-10_5319212119365260_008EDJ5tgy1iez46dw2pej35eo31kkjm.jpg')">
+        <img src="images/nte_2026-07-10_5319212119365260_008EDJ5tgy1iez46dw2pej35eo31kkjm.jpg" alt="精彩再现丨BW2026现场回" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0710-nte-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">哔啵哔啵——呼叫鉴定师，这里是E.T.D六队的灵可，正在执行『找你出去玩</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:00 · <a href="https://weibo.com/7929584207/5319086046973077" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-10_5319086046973077_008EDJ5tgy1ieyoakt52nj32yo1o04qq.jpg')">
+        <img src="images/nte_2026-07-10_5319086046973077_008EDJ5tgy1ieyoakt52nj32yo1o04qq.jpg" alt="哔啵哔啵——呼叫鉴定师，这里是E.T.D六队的灵可，正在执行『找你出去玩" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0709-nte" class="date-header">07-09 周四</div>
+    <div id="post-0709-nte-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">燎原环线</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">14:21 · <a href="https://weibo.com/7929584207/5318774286715836" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-09_5318774286715836_008EDJ5tgy1iexpvv0vpwj31hc0u0kcb.jpg')">
+        <img src="images/nte_2026-07-09_5318774286715836_008EDJ5tgy1iexpvv0vpwj31hc0u0kcb.jpg" alt="燎原环线" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-nte-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《异环》×北通 联</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">14:00 · <a href="https://weibo.com/7929584207/5318768957592289" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-09_5318768957592289_008EDJ5tgy1iexld1886mj30m80m8jxg.jpg')">
+        <img src="images/nte_2026-07-09_5318768957592289_008EDJ5tgy1iexld1886mj30m80m8jxg.jpg" alt="《异环》×北通 联" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-09_5318768957592289_008EDJ5tgy1iexld1050gj30m80m8dko.jpg')">
+        <img src="images/nte_2026-07-09_5318768957592289_008EDJ5tgy1iexld1050gj30m80m8dko.jpg" alt="《异环》×北通 联" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-nte-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">你可以把我当成一个秘密，一袭幻影，一场独属于你的噩梦……</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:00 · <a href="https://weibo.com/7929584207/5318723716254516" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-09_5318723716254516_008EDJ5tgy1iexjvgxtxmj32yo1o0e82.jpg')">
+        <img src="images/nte_2026-07-09_5318723716254516_008EDJ5tgy1iexjvgxtxmj32yo1o0e82.jpg" alt="你可以把我当成一个秘密，一袭幻影，一场独属于你的噩梦……" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0708-nte" class="date-header">07-08 周三</div>
+    <div id="post-0708-nte-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">可可！让我来保护你！</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7929584207/5318376370734959" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-08_5318376370734959_008EDJ5tgy1iewd0hpnscj30ku112wrm.jpg')">
+        <img src="images/nte_2026-07-08_5318376370734959_008EDJ5tgy1iewd0hpnscj30ku112wrm.jpg" alt="可可！让我来保护你！" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-08_5318376370734959_008EDJ5tgy1iewd0mld9xg30ku1121l3.gif')">
+        <img src="images/nte_2026-07-08_5318376370734959_008EDJ5tgy1iewd0mld9xg30ku1121l3.gif" alt="可可！让我来保护你！" loading="lazy">
+        <span class="gif-tag">GIF</span>
+      </div>
+    </div>
+    </div>
+    <div id="post-0708-nte-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">真红角色EP《Whatever</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">10:00 · <a href="https://weibo.com/7929584207/5318346289713959" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-08_5318346289713959_008EDJ5tgy1iewck0dnbaj315o15ob0z.jpg')">
+        <img src="images/nte_2026-07-08_5318346289713959_008EDJ5tgy1iewck0dnbaj315o15ob0z.jpg" alt="真红角色EP《Whatever" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0706-nte" class="date-header">07-06 周一</div>
+    <div id="post-0706-nte-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">九百九十九夜</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">16:09 · <a href="https://weibo.com/7929584207/5317714268914884" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-06_5317714268914884_008EDJ5tgy1ieuc4o4glwj31hc0u01kx.jpg')">
+        <img src="images/nte_2026-07-06_5317714268914884_008EDJ5tgy1ieuc4o4glwj31hc0u01kx.jpg" alt="九百九十九夜" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-nte-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">最近运气不错，每次出门都能遇到想收藏的新东西。</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">10:21 · <a href="https://weibo.com/7929584207/5317626758955577" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-06_5317626758955577_008EDJ5tgy1ieu22nt65mj30yg1pcqv5.jpg')">
+        <img src="images/nte_2026-07-06_5317626758955577_008EDJ5tgy1ieu22nt65mj30yg1pcqv5.jpg" alt="最近运气不错，每次出门都能遇到想收藏的新东西。" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/nte_2026-07-06_5317626758955577_008EDJ5tgy1ieu22teqh3j32bc445e87.jpg')">
+        <img src="images/nte_2026-07-06_5317626758955577_008EDJ5tgy1ieu22teqh3j32bc445e87.jpg" alt="最近运气不错，每次出门都能遇到想收藏的新东西。" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="game-section" data-game="wuwave">
+  <div class="game-header">
+    <span class="game-icon"></span>
+    <span class="game-name">鸣潮</span>
+    <span class="game-post-count">32 条帖子</span>
+  </div>
+  <div class="date-group">
+    <div id="date-0712-wuwave" class="date-header">07-12 周日</div>
+    <div id="post-0712-wuwave-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《鸣潮》时光邮局</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">14:00 · <a href="https://weibo.com/7730797357/5319856120662534" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-12_5319856120662534_008rbDxXgy1if14aqqd5yj34un38f7wm.jpg')">
+        <img src="images/wuwave_2026-07-12_5319856120662534_008rbDxXgy1if14aqqd5yj34un38f7wm.jpg" alt="《鸣潮》时光邮局" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-12_5319856120662534_008rbDxXgy1if14aqhdyyj335s23u1kz.jpg')">
+        <img src="images/wuwave_2026-07-12_5319856120662534_008rbDxXgy1if14aqhdyyj335s23u1kz.jpg" alt="《鸣潮》时光邮局" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0712-wuwave-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">11:30 · <a href="https://weibo.com/7730797357/5319818371932813" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-12_5319818371932813_008rbDxXgy1if0hjl3aq4j32gw11de81.jpg')">
+        <img src="images/wuwave_2026-07-12_5319818371932813_008rbDxXgy1if0hjl3aq4j32gw11de81.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-12_5319818371932813_008rbDxXgy1if0hjl48hjj32gw11db29.jpg')">
+        <img src="images/wuwave_2026-07-12_5319818371932813_008rbDxXgy1if0hjl48hjj32gw11db29.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0712-wuwave-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">10:00 · <a href="https://weibo.com/7730797357/5319795722684089" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-12_5319795722684089_008rbDxXgy1if0fys3yy2j33343t1x6u.jpg')">
+        <img src="images/wuwave_2026-07-12_5319795722684089_008rbDxXgy1if0fys3yy2j33343t1x6u.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0711-wuwave" class="date-header">07-11 周六</div>
+    <div id="post-0711-wuwave-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《鸣潮》BilibiliWor</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">20:00 · <a href="https://weibo.com/7730797357/5319584330288736" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-11_5319584330288736_008rbDxXgy1if0a92423sj33291y8u0z.jpg')">
+        <img src="images/wuwave_2026-07-11_5319584330288736_008rbDxXgy1if0a92423sj33291y8u0z.jpg" alt="《鸣潮》BilibiliWor" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-11_5319584330288736_008rbDxXgy1if0a8ueslfj33341xhe83.jpg')">
+        <img src="images/wuwave_2026-07-11_5319584330288736_008rbDxXgy1if0a8ueslfj33341xhe83.jpg" alt="《鸣潮》BilibiliWor" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0711-wuwave-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">先纵后横</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">19:00 · <a href="https://weibo.com/7730797357/5319569230794337" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-11_5319569230794337_008rbDxXgy1if07vxfu2sj31hc0u0ayq.jpg')">
+        <img src="images/wuwave_2026-07-11_5319569230794337_008rbDxXgy1if07vxfu2sj31hc0u0ayq.jpg" alt="先纵后横" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0711-wuwave-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《鸣潮》梦州·玄方篇OST Vo</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">12:30 · <a href="https://weibo.com/7730797357/5319471084077897" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-11_5319471084077897_008rbDxXgy1iez7h4glikj31hc0u0hdt.jpg')">
+        <img src="images/wuwave_2026-07-11_5319471084077897_008rbDxXgy1iez7h4glikj31hc0u0hdt.jpg" alt="《鸣潮》梦州·玄方篇OST Vo" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0711-wuwave-4" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:00 · <a href="https://weibo.com/7730797357/5319448434836761" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-11_5319448434836761_008rbDxXgy1iez79y4x39j33y82801l2.jpg')">
+        <img src="images/wuwave_2026-07-11_5319448434836761_008rbDxXgy1iez79y4x39j33y82801l2.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0710-wuwave" class="date-header">07-10 周五</div>
+    <div id="post-0710-wuwave-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑 荡梦而歌</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">20:00 · <a href="https://weibo.com/7730797357/5319221942423363" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319221942423363_008rbDxXgy1iez4m1amw6j30m1bkoe83.jpg')">
+        <img src="images/wuwave_2026-07-10_5319221942423363_008rbDxXgy1iez4m1amw6j30m1bkoe83.jpg" alt="遗音扶剑 荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0710-wuwave-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">“漂泊者</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">19:30 · <a href="https://weibo.com/7730797357/5319214392677521" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319214392677521_008rbDxXgy1ieza8ti5bwj31hc0u0e82.jpg')">
+        <img src="images/wuwave_2026-07-10_5319214392677521_008rbDxXgy1ieza8ti5bwj31hc0u0e82.jpg" alt="“漂泊者" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0710-wuwave-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">逃离鸭科夫</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">19:00 · <a href="https://weibo.com/7730797357/5319206842929680" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319206842929680_008rbDxXgy1iez1m37m89j31hc0u0x1r.jpg')">
+        <img src="images/wuwave_2026-07-10_5319206842929680_008rbDxXgy1iez1m37m89j31hc0u0x1r.jpg" alt="逃离鸭科夫" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0710-wuwave-4" class="post-card">
+      <div class="post-header">
+        <span class="post-title">“深空与黑花”特别勋章</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">18:00 · <a href="https://weibo.com/7730797357/5319191742645863" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319191742645863_008rbDxXgy1iez0gyxdj4j30u02gs4nr.jpg')">
+        <img src="images/wuwave_2026-07-10_5319191742645863_008rbDxXgy1iez0gyxdj4j30u02gs4nr.jpg" alt="“深空与黑花”特别勋章" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319191742645863_008rbDxXgy1iez0gyx6htj30u02vub29.jpg')">
+        <img src="images/wuwave_2026-07-10_5319191742645863_008rbDxXgy1iez0gyx6htj30u02vub29.jpg" alt="“深空与黑花”特别勋章" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0710-wuwave-5" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《鸣潮》3.5版</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">14:45 · <a href="https://weibo.com/7730797357/5319142669292487" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319142669292487_008rbDxXgy1ieyqsrhs1bj30ku3jt4qp.jpg')">
+        <img src="images/wuwave_2026-07-10_5319142669292487_008rbDxXgy1ieyqsrhs1bj30ku3jt4qp.jpg" alt="《鸣潮》3.5版" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0710-wuwave-6" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">14:30 · <a href="https://weibo.com/7730797357/5319138894678820" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319138894678820_008rbDxXgy1ieyqr08rynj30ku23cnfw.jpg')">
+        <img src="images/wuwave_2026-07-10_5319138894678820_008rbDxXgy1ieyqr08rynj30ku23cnfw.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0710-wuwave-7" class="post-card">
+      <div class="post-header">
+        <span class="post-title">再续 · 光影瞬息</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">14:00 · <a href="https://weibo.com/7730797357/5319131344935150" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-10_5319131344935150_008rbDxXgy1ieypo0p9yxj30u067c1kz.jpg')">
+        <img src="images/wuwave_2026-07-10_5319131344935150_008rbDxXgy1ieypo0p9yxj30u067c1kz.jpg" alt="再续 · 光影瞬息" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0709-wuwave" class="date-header">07-09 周四</div>
+    <div id="post-0709-wuwave-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">19:00 · <a href="https://weibo.com/7730797357/5318844454278099" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318844454278099_008rbDxXgy1iexv9gquurj30u01hcqsc.jpg')">
+        <img src="images/wuwave_2026-07-09_5318844454278099_008rbDxXgy1iexv9gquurj30u01hcqsc.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318844454278099_008rbDxXgy1iexv9gr7wyj30u01hc4qp.jpg')">
+        <img src="images/wuwave_2026-07-09_5318844454278099_008rbDxXgy1iexv9gr7wyj30u01hc4qp.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">18:15 · <a href="https://weibo.com/7730797357/5318833129920612" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318833129920612_008rbDxXgy1iexutq5qjtj30u06o0kjn.jpg')">
+        <img src="images/wuwave_2026-07-09_5318833129920612_008rbDxXgy1iexutq5qjtj30u06o0kjn.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318833129920612_008rbDxXgy1iexutusrdlj30s3cmtnpi.jpg')">
+        <img src="images/wuwave_2026-07-09_5318833129920612_008rbDxXgy1iexutusrdlj30s3cmtnpi.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">档案回顾</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">17:00 · <a href="https://weibo.com/7730797357/5318814256074922" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318814256074922_008rbDxXgy1iexlgbd0l2j30u06dax6q.jpg')">
+        <img src="images/wuwave_2026-07-09_5318814256074922_008rbDxXgy1iexlgbd0l2j30u06dax6q.jpg" alt="档案回顾" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318814256074922_008rbDxXgy1iexlgbirtcj30tm5i7qva.jpg')">
+        <img src="images/wuwave_2026-07-09_5318814256074922_008rbDxXgy1iexlgbirtcj30tm5i7qva.jpg" alt="档案回顾" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-4" class="post-card">
+      <div class="post-header">
+        <span class="post-title">全息战略·达妮娅</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">16:00 · <a href="https://weibo.com/7730797357/5318799155794284" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318799155794284_008rbDxXgy1iexleo8tygj30u034zhdt.jpg')">
+        <img src="images/wuwave_2026-07-09_5318799155794284_008rbDxXgy1iexleo8tygj30u034zhdt.jpg" alt="全息战略·达妮娅" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-5" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">15:00 · <a href="https://weibo.com/7730797357/5318784057083474" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318784057083474_008rbDxXgy1iexlvqs312j30u01hcb29.jpg')">
+        <img src="images/wuwave_2026-07-09_5318784057083474_008rbDxXgy1iexlvqs312j30u01hcb29.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318784057083474_008rbDxXgy1iexlvqt8ozj30u01hce81.jpg')">
+        <img src="images/wuwave_2026-07-09_5318784057083474_008rbDxXgy1iexlvqt8ozj30u01hce81.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-6" class="post-card">
+      <div class="post-header">
+        <span class="post-title">苍鳞千嶂</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:20 · <a href="https://weibo.com/7730797357/5318728692271133" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318728692271133_008rbDxXgy1iewx3aq5eoj31hc0u0aws.jpg')">
+        <img src="images/wuwave_2026-07-09_5318728692271133_008rbDxXgy1iewx3aq5eoj31hc0u0aws.jpg" alt="苍鳞千嶂" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-7" class="post-card">
+      <div class="post-header">
+        <span class="post-title">忌炎</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:15 · <a href="https://weibo.com/7730797357/5318727433978848" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318727433978848_008rbDxXgy1iewx27e2toj31hc0u01kx.jpg')">
+        <img src="images/wuwave_2026-07-09_5318727433978848_008rbDxXgy1iewx27e2toj31hc0u01kx.jpg" alt="忌炎" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-8" class="post-card">
+      <div class="post-header">
+        <span class="post-title">牵翎祈万声</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">11:10 · <a href="https://weibo.com/7730797357/5318726174900570" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318726174900570_008rbDxXgy1iewwza9amlj31hc0u01i2.jpg')">
+        <img src="images/wuwave_2026-07-09_5318726174900570_008rbDxXgy1iewwza9amlj31hc0u01i2.jpg" alt="牵翎祈万声" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318726174900570_008rbDxXgy1iewwyxynhoj31hc0u04qp.jpg')">
+        <img src="images/wuwave_2026-07-09_5318726174900570_008rbDxXgy1iewwyxynhoj31hc0u04qp.jpg" alt="牵翎祈万声" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-9" class="post-card">
+      <div class="post-header">
+        <span class="post-title">天之苍苍</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:05 · <a href="https://weibo.com/7730797357/5318724916614038" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318724916614038_008rbDxXgy1iewwv8krp4j31hc0u0awq.jpg')">
+        <img src="images/wuwave_2026-07-09_5318724916614038_008rbDxXgy1iewwv8krp4j31hc0u0awq.jpg" alt="天之苍苍" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0709-wuwave-10" class="post-card">
+      <div class="post-header">
+        <span class="post-title">秧秧・玄翎</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">11:00 · <a href="https://weibo.com/7730797357/5318723658587519" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-09_5318723658587519_008rbDxXgy1iewwsq19l8j31hc0u0x4r.jpg')">
+        <img src="images/wuwave_2026-07-09_5318723658587519_008rbDxXgy1iewwsq19l8j31hc0u0x4r.jpg" alt="秧秧・玄翎" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0708-wuwave" class="date-header">07-08 周三</div>
+    <div id="post-0708-wuwave-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">★鸣潮×支付宝 鸣潮演唱会特别合作</span>
+        <span class="post-badge">1张图</span>
+      </div>
+      <div class="post-meta">19:30 · <a href="https://weibo.com/7730797357/5318489616946445" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-1">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-08_5318489616946445_008rbDxXgy1iewqccx12bj30u085zhdv.jpg')">
+        <img src="images/wuwave_2026-07-08_5318489616946445_008rbDxXgy1iewqccx12bj30u085zhdv.jpg" alt="★鸣潮×支付宝 鸣潮演唱会特别合作" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0708-wuwave-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">19:00 · <a href="https://weibo.com/7730797357/5318482071388334" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-08_5318482071388334_008rbDxXgy1iewlgf1zc4j30u01hckhs.jpg')">
+        <img src="images/wuwave_2026-07-08_5318482071388334_008rbDxXgy1iewlgf1zc4j30u01hckhs.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-08_5318482071388334_008rbDxXgy1iewlgf21zej30u01hc1kx.jpg')">
+        <img src="images/wuwave_2026-07-08_5318482071388334_008rbDxXgy1iewlgf21zej30u01hc1kx.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0708-wuwave-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">17:00 · <a href="https://weibo.com/7730797357/5318451871614731" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-08_5318451871614731_008rbDxXgy1iewl5tf0xaj30u05qge84.jpg')">
+        <img src="images/wuwave_2026-07-08_5318451871614731_008rbDxXgy1iewl5tf0xaj30u05qge84.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-08_5318451871614731_008rbDxXgy1iewl5vepjfj30u084bb2d.jpg')">
+        <img src="images/wuwave_2026-07-08_5318451871614731_008rbDxXgy1iewl5vepjfj30u084bb2d.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0708-wuwave-4" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">15:00 · <a href="https://weibo.com/7730797357/5318421669217677" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-08_5318421669217677_008rbDxXgy1ievs6johi1j30u01hcb2a.jpg')">
+        <img src="images/wuwave_2026-07-08_5318421669217677_008rbDxXgy1ievs6johi1j30u01hcb2a.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-08_5318421669217677_008rbDxXgy1ievs6jmzrvj30u01hcx6p.jpg')">
+        <img src="images/wuwave_2026-07-08_5318421669217677_008rbDxXgy1ievs6jmzrvj30u01hcx6p.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="date-group">
+    <div id="date-0706-wuwave" class="date-header">07-06 周一</div>
+    <div id="post-0706-wuwave-1" class="post-card">
+      <div class="post-header">
+        <span class="post-title">遗音扶剑，荡梦而歌</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">19:00 · <a href="https://weibo.com/7730797357/5317757290945192" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317757290945192_008rbDxXgy1ieuepdobdwj30u01hcqrw.jpg')">
+        <img src="images/wuwave_2026-07-06_5317757290945192_008rbDxXgy1ieuepdobdwj30u01hcqrw.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317757290945192_008rbDxXgy1ieuepdnjiwj30u01hcqoa.jpg')">
+        <img src="images/wuwave_2026-07-06_5317757290945192_008rbDxXgy1ieuepdnjiwj30u01hcqoa.jpg" alt="遗音扶剑，荡梦而歌" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-wuwave-2" class="post-card">
+      <div class="post-header">
+        <span class="post-title">《鸣潮》时光邮局活动将</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">16:00 · <a href="https://weibo.com/7730797357/5317711992459299" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317711992459299_008rbDxXgy1ieu9kfvpplj30ku3pu4qs.jpg')">
+        <img src="images/wuwave_2026-07-06_5317711992459299_008rbDxXgy1ieu9kfvpplj30ku3pu4qs.jpg" alt="《鸣潮》时光邮局活动将" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317711992459299_008rbDxXgy1ieu9kfu1hsj30ku3bunpf.jpg')">
+        <img src="images/wuwave_2026-07-06_5317711992459299_008rbDxXgy1ieu9kfu1hsj30ku3bunpf.jpg" alt="《鸣潮》时光邮局活动将" loading="lazy">
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-wuwave-3" class="post-card">
+      <div class="post-header">
+        <span class="post-title">梦州·玄方地界</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">12:00 · <a href="https://weibo.com/7730797357/5317651594220371" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317651594220371_008rbDxXgy1ieu3nsqifgj31hc0u0txb.jpg')">
+        <img src="images/wuwave_2026-07-06_5317651594220371_008rbDxXgy1ieu3nsqifgj31hc0u0txb.jpg" alt="梦州·玄方地界" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317651594220371_008rbDxXgy1ieu3qshvfvg30fa1ps1ld.gif')">
+        <img src="images/wuwave_2026-07-06_5317651594220371_008rbDxXgy1ieu3qshvfvg30fa1ps1ld.gif" alt="梦州·玄方地界" loading="lazy">
+        <span class="gif-tag">GIF</span>
+      </div>
+    </div>
+    </div>
+    <div id="post-0706-wuwave-4" class="post-card">
+      <div class="post-header">
+        <span class="post-title">档案公开</span>
+        <span class="post-badge">2张图</span>
+      </div>
+      <div class="post-meta">11:05 · <a href="https://weibo.com/7730797357/5317637753278811" target="_blank" rel="noopener">查看原帖 ↗</a></div>
+      <div class="img-grid cols-2">
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317637753278811_008rbDxXgy1ieu27n44vdj30u01hce6v.jpg')">
+        <img src="images/wuwave_2026-07-06_5317637753278811_008rbDxXgy1ieu27n44vdj30u01hce6v.jpg" alt="档案公开" loading="lazy">
+      </div>
+      <div class="img-wrap" onclick="openLb('images/wuwave_2026-07-06_5317637753278811_008rbDxXgy1ieu27myvj1j30u01mctvb.jpg')">
+        <img src="images/wuwave_2026-07-06_5317637753278811_008rbDxXgy1ieu27myvj1j30u01mctvb.jpg" alt="档案公开" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</div><!-- /container -->
+</div><!-- /main -->
+
+<!-- ── LIGHTBOX ── -->
+<div id="lb">
+  <div id="lb-canvas">
+    <img id="lb-img" src="" alt="preview">
+  </div>
+  <button id="lb-close" onclick="closeLb()" title="关闭 (Esc)">✕</button>
+  <div id="lb-controls">
+    <button onclick="zoomBy(-0.25)" title="缩小">－</button>
+    <span id="lb-zoom-label">100%</span>
+    <button onclick="zoomBy(0.25)" title="放大">＋</button>
+    <button onclick="resetZoom()" title="重置">⤢</button>
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────
+   LIGHTBOX with pan & zoom
+───────────────────────────────── */
+const lb      = document.getElementById('lb');
+const canvas  = document.getElementById('lb-canvas');
+const lbImg   = document.getElementById('lb-img');
+const zLabel  = document.getElementById('lb-zoom-label');
+
+let scale = 1, tx = 0, ty = 0;
+let dragging = false, startX, startY, startTx, startTy;
+let lastDist = null;
+
+const MIN_SCALE = 0.2, MAX_SCALE = 8;
+
+function applyTransform(smooth) {
+  lbImg.style.transition = smooth ? 'transform .2s ease' : 'none';
+  lbImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  zLabel.textContent = Math.round(scale * 100) + '%';
+}
+
+function openLb(src) {
+  scale = 1; tx = 0; ty = 0;
+  lbImg.src = src;
+  lb.classList.add('on');
+  applyTransform(false);
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLb() {
+  lb.classList.remove('on');
+  lbImg.src = '';
+  document.body.style.overflow = '';
+}
+
+function zoomBy(delta) {
+  scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
+  applyTransform(true);
+}
+
+function resetZoom() {
+  scale = 1; tx = 0; ty = 0;
+  applyTransform(true);
+}
+
+/* Scroll wheel zoom */
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 1.12 : 0.88;
+  const rect = canvas.getBoundingClientRect();
+  const ox = e.clientX - rect.left - rect.width  / 2;
+  const oy = e.clientY - rect.top  - rect.height / 2;
+  const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale * factor));
+  const ratio = newScale / scale;
+  tx = ox + (tx - ox) * ratio;
+  ty = oy + (ty - oy) * ratio;
+  scale = newScale;
+  applyTransform(false);
+}, { passive: false });
+
+/* Drag to pan */
+canvas.addEventListener('mousedown', e => {
+  if (e.button !== 0) return;
+  dragging = true;
+  startX = e.clientX; startY = e.clientY;
+  startTx = tx; startTy = ty;
+  canvas.classList.add('dragging');
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  tx = startTx + (e.clientX - startX);
+  ty = startTy + (e.clientY - startY);
+  applyTransform(false);
+});
+window.addEventListener('mouseup', () => {
+  dragging = false;
+  canvas.classList.remove('dragging');
+});
+
+/* Click backdrop to close */
+let clickMoved = false;
+canvas.addEventListener('mousedown', () => { clickMoved = false; });
+canvas.addEventListener('mousemove', () => { clickMoved = true; });
+canvas.addEventListener('mouseup', e => {
+  if (!clickMoved && e.target === canvas) closeLb();
+});
+
+/* Touch pinch-to-zoom */
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    lastDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  } else if (e.touches.length === 1) {
+    dragging = true;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    startTx = tx; startTy = ty;
+  }
+}, { passive: true });
+
+canvas.addEventListener('touchmove', e => {
+  if (e.touches.length === 2) {
+    e.preventDefault();
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    if (lastDist) {
+      const ratio = dist / lastDist;
+      scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale * ratio));
+      applyTransform(false);
+    }
+    lastDist = dist;
+  } else if (e.touches.length === 1 && dragging) {
+    tx = startTx + (e.touches[0].clientX - startX);
+    ty = startTy + (e.touches[0].clientY - startY);
+    applyTransform(false);
+  }
+}, { passive: false });
+
+canvas.addEventListener('touchend', e => {
+  if (e.touches.length < 2) lastDist = null;
+  if (e.touches.length === 0) dragging = false;
+});
+
+/* Keyboard */
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === '+' || e.key === '=') zoomBy(0.25);
+  if (e.key === '-') zoomBy(-0.25);
+  if (e.key === '0') resetZoom();
+});
+
+/* ─────────────────────────────────
+   SIDEBAR: Game → Date → Post tracking
+   Supports both two-level (date→post) and three-level (game→date→post) modes
+───────────────────────────────── */
+
+/* Toggle game collapse (three-level mode) */
+function toggleGame(btn) {
+  const children = btn.nextElementSibling;
+  btn.classList.toggle('collapsed');
+  children.classList.toggle('collapsed');
+}
+
+/* Toggle date collapse */
+function toggleDate(btn) {
+  const posts = btn.nextElementSibling;
+  btn.classList.toggle('collapsed');
+  posts.classList.toggle('collapsed');
+}
+
+/* Click date label → scroll to date header */
+document.querySelectorAll('.sb-date-toggle').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const dateId = this.closest('.sb-date').dataset.date;
+    const target = document.getElementById(dateId);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+/* Click game label → scroll to game section (three-level mode) */
+document.querySelectorAll('.sb-game-toggle').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const gameId = this.closest('.sb-game').dataset.game;
+    const target = document.querySelector(`.game-section[data-game="${gameId}"]`);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+/* Click post title → scroll to post card */
+document.querySelectorAll('.sb-post').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById(link.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+/* Scroll spy — highlight current post & auto-expand parent groups */
+const postCards = document.querySelectorAll('.post-card[id]');
+const sbGames = document.querySelectorAll('.sb-game');
+const sbDates = document.querySelectorAll('.sb-date');
+
+function updateSidebar() {
+  const scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+  let currentPostId = null;
+
+  postCards.forEach(el => {
+    if (el.offsetTop - 80 <= scrollY) currentPostId = el.id;
+  });
+
+  // Highlight current post
+  document.querySelectorAll('.sb-post').forEach(link => {
+    link.classList.toggle('active', link.dataset.target === currentPostId);
+  });
+
+  if (currentPostId) {
+    const currentCard = document.getElementById(currentPostId);
+    const gameSection = currentCard.closest('.game-section');
+    const dateHeader = currentCard.closest('.date-group').querySelector('.date-header');
+    const currentGame = gameSection ? gameSection.dataset.game : null;
+    const currentDate = dateHeader ? dateHeader.id : null;
+
+    // Three-level mode: auto-expand game + date groups
+    if (sbGames.length > 0) {
+      sbGames.forEach(sbGame => {
+        const isGameMatch = sbGame.dataset.game === currentGame;
+        const gameChildren = sbGame.querySelector('.sb-game-children');
+        const gameToggle = sbGame.querySelector('.sb-game-toggle');
+
+        if (isGameMatch && gameChildren.classList.contains('collapsed')) {
+          gameChildren.classList.remove('collapsed');
+          gameToggle.classList.remove('collapsed');
+        }
+
+        sbGame.querySelectorAll('.sb-date').forEach(sbDate => {
+          const isDateMatch = sbDate.dataset.date === currentDate;
+          const dateToggle = sbDate.querySelector('.sb-date-toggle');
+          const posts = sbDate.querySelector('.sb-posts');
+
+          if (isGameMatch && isDateMatch && posts.classList.contains('collapsed')) {
+            posts.classList.remove('collapsed');
+            dateToggle.classList.remove('collapsed');
+          }
+        });
+      });
+    } else {
+      // Two-level mode: auto-expand date groups only
+      sbDates.forEach(sbDate => {
+        const isMatch = sbDate.dataset.date === currentDate;
+        const toggle = sbDate.querySelector('.sb-date-toggle');
+        const posts = sbDate.querySelector('.sb-posts');
+        if (isMatch && posts.classList.contains('collapsed')) {
+          posts.classList.remove('collapsed');
+          toggle.classList.remove('collapsed');
+        }
+      });
+    }
+  }
+}
+
+window.addEventListener('scroll', updateSidebar, { passive: true });
+updateSidebar();
+</script>
+
+</body>
+</html>
